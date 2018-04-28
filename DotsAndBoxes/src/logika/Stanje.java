@@ -6,8 +6,5 @@ public enum Stanje {
 	ZMAGA_IGRALEC1, 
 	ZMAGA_IGRALEC2, 
 	NEODLOCENO;
-	
-	
-
 }
 
