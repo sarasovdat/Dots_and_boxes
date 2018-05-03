@@ -63,7 +63,7 @@ public class Igra {
 		for (int i = 0; i < (Plosca.VISINA + 1); i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
 				if(plosca.vodoravneCrte[i][j] == false) {
-					moznePoteze.add(new Poteza(Smer.VODORAVNO, i, j));
+					moznePoteze.add(new Poteza(Smer.DESNO, i, j));
 				}
 			}
 		}
@@ -71,7 +71,7 @@ public class Igra {
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < (Plosca.SIRINA + 1); j++) {
 				if(plosca.navpicneCrte[i][j] == false) {
-					moznePoteze.add(new Poteza(Smer.NAVPICNO, i, j));
+					moznePoteze.add(new Poteza(Smer.DOL, i, j));
 				}
 			}
 		}
@@ -87,14 +87,14 @@ public class Igra {
 		if (plosca.polje[p.getI()][p.getJ()] != Box.PRAZNO) {
 			return false;
 		} else {
-			if (p.getSmer() == Smer.NAVPICNO) {
+			if (p.getSmer() == Smer.DOL) {
 				if (plosca.navpicneCrte[p.getI()][p.getJ()] == false) {
 					plosca.navpicneCrte[p.getI()][p.getJ()] = true;
 					return true;
 				} else {
 					return false;	
 				}
-			} else if (p.getSmer() == Smer.VODORAVNO) {
+			} else if (p.getSmer() == Smer.DESNO) {
 				if (plosca.vodoravneCrte[p.getI()][p.getJ()] == false) {
 					plosca.vodoravneCrte[p.getI()][p.getJ()] = true;
 					return true;

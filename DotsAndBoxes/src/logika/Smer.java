@@ -1,5 +1,5 @@
 package logika;
 
 public enum Smer {
-	NAVPICNO, VODORAVNO;
+	DOL, DESNO;
 }
