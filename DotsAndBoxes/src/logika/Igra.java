@@ -151,6 +151,23 @@ public class Igra {
 	
 	/**
 	 * 
+	 * @param i
+	 * @param j
+	 * @return True, èe je polje na poziciji [i][j] zapolnjeno.
+	 */
+	public boolean kateriBox(int i, int j) {
+		if (plosca.navpicneCrte[i][j] != Crta.PRAZNO 
+				&& plosca.navpicneCrte[i][j] != Crta.PRAZNO
+				&& plosca.vodoravneCrte[i][j] != Crta.PRAZNO
+				&& plosca.vodoravneCrte[i][j] != Crta.PRAZNO) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 
 	 * @param p
 	 * @return True, ce je bila poteza uspesno odigrana.
 	 * Zapomni si poteze, 'pobarva' box.
@@ -165,6 +182,11 @@ public class Igra {
 						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.RDEC;
 					} else {
 						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.MODER;
+					}
+					if (polnBox(p) == false){
+						naPotezi = naPotezi.nasprotnik();
+					} else {
+						if ()
 					}
 					return true;
 				} else {
