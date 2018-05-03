@@ -146,12 +146,14 @@ public class Igra {
 				return false;
 			}
 		}
+		return false;
 	}
 	
 	/**
 	 * 
 	 * @param p
-	 * @return True, èe je bila poteza uspešno odigrana.
+	 * @return True, ce je bila poteza uspesno odigrana.
+	 * Zapomni si poteze, 'pobarva' box.
 	 */
 	public boolean odigraj(Poteza p) {
 		if (plosca.polje[p.getI()][p.getJ()] != Box.PRAZNO) {
@@ -159,14 +161,22 @@ public class Igra {
 		} else {
 			if (p.getSmer() == Smer.DOL) {
 				if (plosca.navpicneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
-					plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.;
+					if (naPotezi == Igralec.RDEC){
+						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.RDEC;
+					} else {
+						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.MODER;
+					}
 					return true;
 				} else {
 					return false;	
 				}
 			} else if (p.getSmer() == Smer.DESNO) {
 				if (plosca.vodoravneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
-					plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.;
+					if (naPotezi == Igralec.RDEC){
+						plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.RDEC;
+					} else {
+						plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.MODER;
+					}
 					return true;
 				} else {
 					return false;	
@@ -176,4 +186,4 @@ public class Igra {
 			}
 		}		
 	}
-}
+} 
