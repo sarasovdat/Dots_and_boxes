@@ -10,6 +10,18 @@ public class Poteza {
 		this.i = i;
 		this.j = j;
 	}
-	
 
+	public Smer getSmer() {
+		return smer;
+	}
+
+
+	public int getI() {
+		return i;
+	}
+
+	
+	public int getJ() {
+		return j;
+	}
 }

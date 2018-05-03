@@ -3,9 +3,9 @@ package logika;
 public class Plosca {
 	
 	/**
-	 * velikost igralne plošèe NxM
+	 * velikost igralne plosce NxM
 	 */
-	protected static final int SIRINA = 4;
+    static final int SIRINA = 4;
 	protected static final int VISINA = 4;
 	public static final int VELIKOST_POLJA = SIRINA * VISINA;
 	
@@ -25,7 +25,7 @@ public class Plosca {
 			}
 		}
 		
-		//Na zaèetku na plošèi ni èrt (vodoravnih in navpiènih).
+		//Na zacetku na plosci ni crt (vodoravnih in navpicnih).
 		for (int i = 0; i < (VISINA + 1); i++) {
 			for (int j = 0; j < SIRINA; j++) {
 				vodoravneCrte[i][j] = false;
@@ -40,7 +40,7 @@ public class Plosca {
 	}
 	
 	
-//Metoda, ki preveri, èe so èrte že narisane.
+//Metoda, ki preveri, ce so crte ze narisane.
 	
 	public boolean crtaLevo (int i, int j) {
 		return navpicneCrte[i][j];
