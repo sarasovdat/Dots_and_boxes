@@ -10,7 +10,7 @@ public class Igra {
 	public Igra() {
 		plosca = new Plosca();
 		//Naj vedno zacne igralec 1
-		naPotezi = Igralec.IGRALEC1;
+		naPotezi = Igralec.RDEC;
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class Igra {
 			}
 		//NI SE KONEC, povemo kdo je na potezi.
 		} else {
-			if (naPotezi == Igralec.IGRALEC1) {
+			if (naPotezi == Igralec.RDEC) {
 				return Stanje.NA_POTEZI_IGRALEC1;
 			} else {
 				return Stanje.NA_POTEZI_IGRALEC2;

@@ -1,10 +1,10 @@
 package logika;
 
 public enum Igralec {
-	IGRALEC1, IGRALEC2;
+	RDEC, MODER;
 	
 	public Igralec nasprotnik() {
-		return (this == IGRALEC1 ? IGRALEC2 : IGRALEC1);
+		return (this == RDEC ? MODER : RDEC);
 	}
 	
 }
