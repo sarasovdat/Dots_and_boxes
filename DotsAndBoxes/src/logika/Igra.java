@@ -9,7 +9,7 @@ public class Igra {
 	
 	public Igra() {
 		plosca = new Plosca();
-		//Naj vedno zacne igralec 1
+		//Naj vedno zacne rdec
 		naPotezi = Igralec.RDEC;
 	}
 	
@@ -43,7 +43,7 @@ public class Igra {
 			else {
 				return Stanje.NEODLOCENO;
 			}
-		//NI SE KONEC, povemo kdo je na potezi.
+		//NI SE KONEC, povemo kdo je na potezi
 		} else {
 			if (naPotezi == Igralec.RDEC) {
 				return Stanje.NA_POTEZI_RDEC;
@@ -62,7 +62,7 @@ public class Igra {
 		//Preverimo vodoravne crte
 		for (int i = 0; i < (Plosca.VISINA + 1); i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if(plosca.vodoravneCrte[i][j] == false) {
+				if(plosca.vodoravneCrte[i][j] == Crta.PRAZNO) {
 					moznePoteze.add(new Poteza(Smer.DESNO, i, j));
 				}
 			}
@@ -70,12 +70,82 @@ public class Igra {
 		//Preverimo navpicne crte
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < (Plosca.SIRINA + 1); j++) {
-				if(plosca.navpicneCrte[i][j] == false) {
+				if(plosca.navpicneCrte[i][j] == Crta.PRAZNO) {
 					moznePoteze.add(new Poteza(Smer.DOL, i, j));
 				}
 			}
 		}
 		return moznePoteze;	
+	}
+	
+	/**
+	 * 
+	 * @param p
+	 * @return True, ce crta zapre box
+	 */
+	public boolean polnBox (Poteza p) {
+		//ce je crta na robu, preverimo za en box
+		if (p.getI() == 0 && p.getSmer() == Smer.DESNO) {
+			if (plosca.navpicneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
+					&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO
+					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (p.getI() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
+			if (plosca.navpicneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO 
+					&& plosca.navpicneCrte[p.getI() - 1][p.getJ() + 1] != Crta.PRAZNO
+					&& plosca.vodoravneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (p.getJ() == 0 && p.getSmer() == Smer.DOL) {
+			if (plosca.vodoravneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
+					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO
+					&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (p.getJ() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
+			if (plosca.vodoravneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO 
+					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ() - 1] != Crta.PRAZNO
+					&& plosca.navpicneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO) {
+				return true;
+			} else {
+				return false;
+			}
+		//Sicer preverimo dva boxa
+		} else {
+			if (p.getSmer() == Smer.DESNO) {
+				//ZGORNJI
+				if (plosca.navpicneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO 
+						&& plosca.navpicneCrte[p.getI() - 1][p.getJ() + 1] != Crta.PRAZNO
+						&& plosca.vodoravneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO) {
+					return true;
+				//SPODNJI
+				} else if (plosca.navpicneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
+						&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO
+						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO) {
+					return true;
+				}
+			} else if (p.getSmer() == Smer.DOL) {
+				//DESNI
+				if (plosca.vodoravneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
+						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO
+						&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO) {
+					return true;
+				} else if (plosca.vodoravneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO 
+						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ() - 1] != Crta.PRAZNO
+						&& plosca.navpicneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO) {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		}
 	}
 	
 	/**
@@ -88,15 +158,15 @@ public class Igra {
 			return false;
 		} else {
 			if (p.getSmer() == Smer.DOL) {
-				if (plosca.navpicneCrte[p.getI()][p.getJ()] == false) {
-					plosca.navpicneCrte[p.getI()][p.getJ()] = true;
+				if (plosca.navpicneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
+					plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.;
 					return true;
 				} else {
 					return false;	
 				}
 			} else if (p.getSmer() == Smer.DESNO) {
-				if (plosca.vodoravneCrte[p.getI()][p.getJ()] == false) {
-					plosca.vodoravneCrte[p.getI()][p.getJ()] = true;
+				if (plosca.vodoravneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
+					plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.;
 					return true;
 				} else {
 					return false;	

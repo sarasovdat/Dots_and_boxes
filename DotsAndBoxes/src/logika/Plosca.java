@@ -10,13 +10,13 @@ public class Plosca {
 	public static final int VELIKOST_POLJA = SIRINA * VISINA;
 	
 	protected Box [][] polje;
-	protected boolean [][] vodoravneCrte;
-	protected boolean [][] navpicneCrte;
+	protected Crta [][] vodoravneCrte;
+	protected Crta [][] navpicneCrte;
 	
 	public Plosca() {
 		polje = new Box [VISINA][SIRINA];
-		vodoravneCrte = new boolean [VISINA + 1][SIRINA];
-		navpicneCrte = new boolean [VISINA][SIRINA + 1];
+		vodoravneCrte = new Crta [VISINA + 1][SIRINA];
+		navpicneCrte = new Crta [VISINA][SIRINA + 1];
 		
 		//Polja nastavimo na prazno.
 		for (int i = 0; i < VISINA; i++) {
@@ -28,13 +28,13 @@ public class Plosca {
 		//Na zacetku na plosci ni crt (vodoravnih in navpicnih).
 		for (int i = 0; i < (VISINA + 1); i++) {
 			for (int j = 0; j < SIRINA; j++) {
-				vodoravneCrte[i][j] = false;
+				vodoravneCrte[i][j] = Crta.PRAZNO;
 			}
 		}
 		
 		for (int i = 0; i < VISINA; i++) {
 			for (int j = 0; j < (SIRINA + 1); j++) {
-				navpicneCrte[i][j] = false;
+				navpicneCrte[i][j] = Crta.PRAZNO;
 			}
 		}
 	}
@@ -42,19 +42,19 @@ public class Plosca {
 	
 //Metoda, ki preveri, ce so crte ze narisane.
 	
-	public boolean crtaLevo (int i, int j) {
+	public Crta crtaLevo (int i, int j) {
 		return navpicneCrte[i][j];
 	}
 	
-	public boolean crtaDesno (int i, int j) {
+	public Crta crtaDesno (int i, int j) {
 		return navpicneCrte[i][j+1];
 	}
 	
-	public boolean crtaZgoraj (int i, int j) {
+	public Crta crtaZgoraj (int i, int j) {
 		return vodoravneCrte[i][j];
 	}
 	
-	public boolean crtaSpodaj (int i, int j) {
+	public Crta crtaSpodaj (int i, int j) {
 		return vodoravneCrte[i+1][j];
 	}
 	
