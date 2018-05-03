@@ -22,10 +22,10 @@ public class Igra {
 		int steviloBoxovIgralec2 = 0;
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if (plosca.polje[i][j] == Box.IGRALEC1) {
+				if (plosca.polje[i][j] == Box.RDEC) {
 					steviloBoxovIgralec1++;
 				}
-				else if (plosca.polje[i][j] == Box.IGRALEC2) {
+				else if (plosca.polje[i][j] == Box.MODER) {
 					steviloBoxovIgralec2++;
 				}
 			}
@@ -34,11 +34,11 @@ public class Igra {
 		if (steviloBoxovIgralec1 + steviloBoxovIgralec2 == Plosca.VISINA * Plosca.SIRINA) {
 			//Kateri igralec ima vec zapoljnenih boxov?
 			if (steviloBoxovIgralec1 > steviloBoxovIgralec2) {
-				return Stanje.ZMAGA_IGRALEC1;
+				return Stanje.ZMAGA_RDEC;
 				
 			}
 			else if (steviloBoxovIgralec1 < steviloBoxovIgralec2) {
-				return Stanje.ZMAGA_IGRALEC2;
+				return Stanje.ZMAGA_MODER;
 			}
 			else {
 				return Stanje.NEODLOCENO;
@@ -46,9 +46,9 @@ public class Igra {
 		//NI SE KONEC, povemo kdo je na potezi.
 		} else {
 			if (naPotezi == Igralec.RDEC) {
-				return Stanje.NA_POTEZI_IGRALEC1;
+				return Stanje.NA_POTEZI_RDEC;
 			} else {
-				return Stanje.NA_POTEZI_IGRALEC2;
+				return Stanje.NA_POTEZI_MODER;
 			}
 		}
 	}
