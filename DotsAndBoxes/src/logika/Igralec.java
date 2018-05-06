@@ -7,4 +7,7 @@ public enum Igralec {
 		return (this == RDEC ? MODER : RDEC);
 	}
 	
+	public Crta crta() {
+		return (this == RDEC ? Crta.RDEC : Crta.MODER);
+	}
 }
