@@ -10,4 +10,8 @@ public enum Igralec {
 	public Crta crta() {
 		return (this == RDEC ? Crta.RDEC : Crta.MODER);
 	}
+	
+	public Box box() {
+		return (this == RDEC ? Box.RDEC : Box.MODER);
+	}
 }

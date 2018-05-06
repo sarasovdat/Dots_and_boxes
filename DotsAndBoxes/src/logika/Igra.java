@@ -77,94 +77,79 @@ public class Igra {
 		}
 		return moznePoteze;	
 	}
-	
 	/**
 	 * 
 	 * @param p
-	 * @return True, ce crta zapre box
+	 * @return seznam lokacij vseh sosednjih kvadratov poteze p
 	 */
-	public boolean polnBox (Poteza p) {
-		//ce je crta na robu, preverimo za en box
-		if (p.getI() == 0 && p.getSmer() == Smer.DESNO) {
-			if (plosca.navpicneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
-					&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO
-					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO) {
-				return true;
-			} else {
-				return false;
+	public LinkedList<Lokacija> sosednjiBoxi(Poteza p){
+		LinkedList<Lokacija> sosednji = new LinkedList<Lokacija>();			
+		Lokacija l = new Lokacija();
+		Lokacija k = new Lokacija();
+		if (p.getI() == 0 || p.getJ() == 0 || p.getI() == Plosca.VISINA || p.getJ() == Plosca.SIRINA) {	
+		//primeri, ko dodamo le en box na seznam lokacij
+			if (p.getI() == 0 && p.getSmer() == Smer.DESNO) {
+				l.i = 0;
+				l.j = p.getJ();
+			} else if (p.getI() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
+				l.i = (p.getI() - 1);
+				l.j = p.getJ();
+			} else if (p.getJ() == 0 && p.getSmer() == Smer.DOL) {
+				l.i = p.getI();
+				l.j = 0;
+			} else if (p.getJ() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
+				l.i = p.getI();
+				l.j = (p.getJ() - 1);
 			}
-		} else if (p.getI() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
-			if (plosca.navpicneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO 
-					&& plosca.navpicneCrte[p.getI() - 1][p.getJ() + 1] != Crta.PRAZNO
-					&& plosca.vodoravneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (p.getJ() == 0 && p.getSmer() == Smer.DOL) {
-			if (plosca.vodoravneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
-					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO
-					&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (p.getJ() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
-			if (plosca.vodoravneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO 
-					&& plosca.vodoravneCrte[p.getI() + 1][p.getJ() - 1] != Crta.PRAZNO
-					&& plosca.navpicneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO) {
-				return true;
-			} else {
-				return false;
-			}
-		//Sicer preverimo dva boxa
+			sosednji.add(l);
 		} else {
+		//dodamo dva boxa
 			if (p.getSmer() == Smer.DESNO) {
-				//ZGORNJI
-				if (plosca.navpicneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO 
-						&& plosca.navpicneCrte[p.getI() - 1][p.getJ() + 1] != Crta.PRAZNO
-						&& plosca.vodoravneCrte[p.getI() - 1][p.getJ()] != Crta.PRAZNO) {
-					return true;
-				//SPODNJI
-				} else if (plosca.navpicneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
-						&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO
-						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO) {
-					return true;
-				}
+				l.i = (p.getI() -1);
+				l.j = p.getJ();
+				k.i = p.getI();
+				k.j = p.getJ();
 			} else if (p.getSmer() == Smer.DOL) {
-				//DESNI
-				if (plosca.vodoravneCrte[p.getI()][p.getJ()] != Crta.PRAZNO 
-						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ()] != Crta.PRAZNO
-						&& plosca.navpicneCrte[p.getI()][p.getJ() + 1] != Crta.PRAZNO) {
-					return true;
-				} else if (plosca.vodoravneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO 
-						&& plosca.vodoravneCrte[p.getI() + 1][p.getJ() - 1] != Crta.PRAZNO
-						&& plosca.navpicneCrte[p.getI()][p.getJ() - 1] != Crta.PRAZNO) {
-					return true;
-				}
-			} else {
-				return false;
+				l.i = p.getI();
+				l.j = (p.getJ() - 1);
+				k.i = p.getI();
+				k.j = p.getJ();			
 			}
+			sosednji.add(l);
+			sosednji.add(k);
 		}
-		return false;
+		return sosednji;
 	}
+	
 	
 	/**
 	 * 
-	 * @param i
-	 * @param j
-	 * @return True, èe je polje na poziciji [i][j] zapolnjeno.
+	 * @param l
+	 * @return true, èe so vse èrte, ki omejujejo kvadrat na lokaciji l že zapolnjene
 	 */
-	public boolean kateriBox(int i, int j) {
-		if (plosca.navpicneCrte[i][j] != Crta.PRAZNO 
-				&& plosca.navpicneCrte[i][j] != Crta.PRAZNO
-				&& plosca.vodoravneCrte[i][j] != Crta.PRAZNO
-				&& plosca.vodoravneCrte[i][j] != Crta.PRAZNO) {
+	public boolean jeObkrozen(Lokacija l) {
+		if (plosca.vodoravneCrte[l.i][l.j] != Crta.PRAZNO
+				&& plosca.vodoravneCrte[l.i + 1][l.j] != Crta.PRAZNO
+				&& plosca.navpicneCrte[l.i][l.j] != Crta.PRAZNO
+				&& plosca.navpicneCrte[l.i][l.j +1] != Crta.PRAZNO) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	private boolean zapolniKvadrate(Poteza p) {
+		boolean smo_zapolnili = false;
+		Box b = naPotezi.box();
+		for (Lokacija l : sosednjiBoxi(p)) {
+			if (jeObkrozen(l)) {
+				smo_zapolnili = smo_zapolnili || plosca.polje[l.i][l.j] == Box.PRAZNO  ;
+		        plosca.polje[l.i][l.j] = b;
+		    }
+		}
+		return smo_zapolnili;
+	}
+	
 	
 	/**
 	 * 

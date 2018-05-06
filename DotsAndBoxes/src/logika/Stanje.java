@@ -6,5 +6,9 @@ public enum Stanje {
 	ZMAGA_RDEC, 
 	ZMAGA_MODER, 
 	NEODLOCENO;
+	
+	private int rdeciKvadratki;
+	private int modriKvadratki;
+//še get in set, in ko bo konec igre nastavi na št. boxov, ki jih ima vsak
 }
 
