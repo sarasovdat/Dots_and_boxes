@@ -142,8 +142,8 @@ public class Igra {
 		boolean smo_zapolnili = false;
 		Box b = naPotezi.box();
 		for (Lokacija l : sosednjiBoxi(p)) {
-			if (jeObkrozen(l)) {
-				smo_zapolnili = smo_zapolnili || plosca.polje[l.i][l.j] == Box.PRAZNO  ;
+			if (jeObkrozen(l) && plosca.polje[l.i][l.j] == Box.PRAZNO) {
+				smo_zapolnili = true;
 		        plosca.polje[l.i][l.j] = b;
 		    }
 		}
@@ -158,39 +158,35 @@ public class Igra {
 	 * Zapomni si poteze, 'pobarva' box.
 	 */
 	public boolean odigraj(Poteza p) {
-		if (plosca.polje[p.getI()][p.getJ()] != Box.PRAZNO) {
-			return false;
-		} else {
-			if (p.getSmer() == Smer.DOL) {
-				if (plosca.navpicneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
-					if (naPotezi == Igralec.RDEC){
-						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.RDEC;
-					} else {
-						plosca.navpicneCrte[p.getI()][p.getJ()] = Crta.MODER;
-					}
-					if (polnBox(p) == false){
-						naPotezi = naPotezi.nasprotnik();
-					} else {
-						if ()
-					}
-					return true;
-				} else {
-					return false;	
-				}
-			} else if (p.getSmer() == Smer.DESNO) {
-				if (plosca.vodoravneCrte[p.getI()][p.getJ()] == Crta.PRAZNO) {
-					if (naPotezi == Igralec.RDEC){
-						plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.RDEC;
-					} else {
-						plosca.vodoravneCrte[p.getI()][p.getJ()] = Crta.MODER;
-					}
-					return true;
-				} else {
-					return false;	
-				}
-			} else {
+		Crta c = naPotezi.crta();
+		int i = p.getI();
+		int j = p.getJ();
+		if (p.getSmer() == Smer.DOL) {
+			if (plosca.navpicneCrte[i][j] != Crta.PRAZNO) {
 				return false;
+			} else {
+				plosca.navpicneCrte[i][j] = c;
+				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
+				if (!smo_zapolnili_kvadrat) {
+					naPotezi = naPotezi.nasprotnik();
+				}
+				return true;
 			}
-		}		
+		} else if (p.getSmer() == Smer.DESNO){
+			if (plosca.vodoravneCrte[i][j] != Crta.PRAZNO) {
+				return false;
+			} else {
+				plosca.vodoravneCrte[i][j] = c;
+				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
+				if (!smo_zapolnili_kvadrat) {
+					naPotezi = naPotezi.nasprotnik();
+				}
+				return true;
+			}
+		}
+		//a je ok da tu vrne false? 
+		return false;
 	}
-} 
+
+}
+		
