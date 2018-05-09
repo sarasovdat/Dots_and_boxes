@@ -15,33 +15,42 @@ public class Igra {
 	
 	/**
 	 * 
-	 * @return Trenutno stanje igre.
+	 * @return Trenutno stanje igre. 
+	 * Ko je igre konec, nastavi stevilo rdecih in modrih kvadratkov.
 	 */
 	public Stanje stanje() {
-		int steviloBoxovIgralec1 = 0;
-		int steviloBoxovIgralec2 = 0;
+		int steviloBoxovRdec = 0;
+		int steviloBoxovModer = 0;
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
 				if (plosca.polje[i][j] == Box.RDEC) {
-					steviloBoxovIgralec1++;
+					steviloBoxovRdec++;
 				}
 				else if (plosca.polje[i][j] == Box.MODER) {
-					steviloBoxovIgralec2++;
+					steviloBoxovModer++;
 				}
 			}
 		}
 		//KONEC IGRE (ko so zapolnjeni vsi boxi)
-		if (steviloBoxovIgralec1 + steviloBoxovIgralec2 == Plosca.VISINA * Plosca.SIRINA) {
+		if (steviloBoxovRdec + steviloBoxovModer == Plosca.VISINA * Plosca.SIRINA) {
 			//Kateri igralec ima vec zapoljnenih boxov?
-			if (steviloBoxovIgralec1 > steviloBoxovIgralec2) {
-				return Stanje.ZMAGA_RDEC;
-				
+			if (steviloBoxovRdec > steviloBoxovModer) {
+				Stanje s = Stanje.ZMAGA_RDEC;
+				s.setRdeciKvadratki(steviloBoxovRdec);
+				s.setModriKvadratki(steviloBoxovModer);
+				return s;	
 			}
-			else if (steviloBoxovIgralec1 < steviloBoxovIgralec2) {
-				return Stanje.ZMAGA_MODER;
+			else if (steviloBoxovRdec < steviloBoxovModer) {
+				Stanje s = Stanje.ZMAGA_MODER;
+				s.setRdeciKvadratki(steviloBoxovRdec);
+				s.setModriKvadratki(steviloBoxovModer);
+				return s;
 			}
 			else {
-				return Stanje.NEODLOCENO;
+				Stanje s = Stanje.NEODLOCENO;
+				s.setRdeciKvadratki(steviloBoxovRdec);
+				s.setModriKvadratki(steviloBoxovModer);
+				return s;
 			}
 		//NI SE KONEC, povemo kdo je na potezi
 		} else {
@@ -155,7 +164,7 @@ public class Igra {
 	 * 
 	 * @param p
 	 * @return True, ce je bila poteza uspesno odigrana.
-	 * Zapomni si poteze, 'pobarva' box.
+	 * 
 	 */
 	public boolean odigraj(Poteza p) {
 		Crta c = naPotezi.crta();
