@@ -9,7 +9,7 @@ public class Igra {
 	
 	public Igra() {
 		plosca = new Plosca();
-		//Naj vedno zacne rdec
+		// Naj vedno zacne rdec
 		naPotezi = Igralec.RDEC;
 	}
 	
@@ -31,9 +31,9 @@ public class Igra {
 				}
 			}
 		}
-		//KONEC IGRE (ko so zapolnjeni vsi boxi)
+		// KONEC IGRE (ko so zapolnjeni vsi boxi)
 		if (steviloBoxovRdec + steviloBoxovModer == Plosca.VISINA * Plosca.SIRINA) {
-			//Kateri igralec ima vec zapoljnenih boxov?
+			// Kateri igralec ima vec zapoljnenih boxov?
 			if (steviloBoxovRdec > steviloBoxovModer) {
 				Stanje s = Stanje.ZMAGA_RDEC;
 				s.setRdeciKvadratki(steviloBoxovRdec);
@@ -52,7 +52,7 @@ public class Igra {
 				s.setModriKvadratki(steviloBoxovModer);
 				return s;
 			}
-		//NI SE KONEC, povemo kdo je na potezi
+		// NI SE KONEC, povemo kdo je na potezi
 		} else {
 			if (naPotezi == Igralec.RDEC) {
 				return Stanje.NA_POTEZI_RDEC;
@@ -64,7 +64,7 @@ public class Igra {
 	
 	/**
 	 * 
-	 * @return Seznam vseh moznih potez.
+	 * @return Seznam vseh moznih potez
 	 */
 	public LinkedList<Poteza> poteze(){
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
@@ -76,7 +76,7 @@ public class Igra {
 				}
 			}
 		}
-		//Preverimo navpicne crte
+		// Preverimo navpicne crte
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < (Plosca.SIRINA + 1); j++) {
 				if(plosca.navpicneCrte[i][j] == Crta.PRAZNO) {
@@ -89,14 +89,14 @@ public class Igra {
 	/**
 	 * 
 	 * @param p
-	 * @return seznam lokacij vseh sosednjih kvadratov poteze p
+	 * @return Seznam lokacij vseh sosednjih kvadratov poteze p
 	 */
 	public LinkedList<Lokacija> sosednjiBoxi(Poteza p){
 		LinkedList<Lokacija> sosednji = new LinkedList<Lokacija>();			
 		Lokacija l = new Lokacija();
 		Lokacija k = new Lokacija();
 		if (p.getI() == 0 || p.getJ() == 0 || p.getI() == Plosca.VISINA || p.getJ() == Plosca.SIRINA) {	
-		//primeri, ko dodamo le en box na seznam lokacij
+		// Primeri, ko dodamo le en box na seznam lokacij
 			if (p.getI() == 0 && p.getSmer() == Smer.DESNO) {
 				l.i = 0;
 				l.j = p.getJ();
@@ -112,7 +112,7 @@ public class Igra {
 			}
 			sosednji.add(l);
 		} else {
-		//dodamo dva boxa
+		// Primeri, ko dodamo dva boxa na seznam lokacij
 			if (p.getSmer() == Smer.DESNO) {
 				l.i = (p.getI() -1);
 				l.j = p.getJ();
@@ -134,7 +134,7 @@ public class Igra {
 	/**
 	 * 
 	 * @param l
-	 * @return true, èe so vse èrte, ki omejujejo kvadrat na lokaciji l že zapolnjene
+	 * @return true, ce so vse crte, ki omejujejo kvadrat na lokaciji l ze zapolnjene
 	 */
 	public boolean jeObkrozen(Lokacija l) {
 		if (plosca.vodoravneCrte[l.i][l.j] != Crta.PRAZNO
@@ -163,7 +163,7 @@ public class Igra {
 	/**
 	 * 
 	 * @param p
-	 * @return True, ce je bila poteza uspesno odigrana.
+	 * @return True, ce je bila poteza uspesno odigrana
 	 * 
 	 */
 	public boolean odigraj(Poteza p) {
@@ -193,8 +193,12 @@ public class Igra {
 				return true;
 			}
 		}
-		//a je ok da tu vrne false? 
+		// A je ok da tu vrne false? 
 		return false;
+	}
+	
+	public Plosca getPlosca() {
+		return plosca;
 	}
 
 }

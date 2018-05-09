@@ -3,6 +3,6 @@ package logika;
 /**
  * 'Cigav' je box
  */
-enum Box {
+public enum Box {
 	PRAZNO, RDEC, MODER;
 }
