@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +32,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * Relativen prazen prostor od pik do roba polja
 	 */
-	private final static double PRAZEN_PROSTOR_DO_ROBA = 0.1;
+	private final static double PRAZEN_PROSTOR_DO_ROBA = 30;
 	
 	public IgralnoPolje (GlavnoOkno okno) {
 			super();
@@ -47,11 +48,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		return new Dimension (400, 400);
 	}
 	
-	/**
+/*	*//**
 	 * 
 	 * @param s
 	 * @return barva igralca, ki je na potezi
-	 */
+	 *//*
 	public static Color barvaIgralcaNaPotezi(Stanje s) {
 		if (s == Stanje.NA_POTEZI_RDEC) {
 			Color c = Color.red;
@@ -59,14 +60,15 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 			Color c = Color.blue;
 		}
 		return c;
-	}
+	}*/
 	
 	/**
 	 * 
 	 * @return relativna velikost boxa
 	 */
 	private double velikostBoxa() {
-		return Math.min(getWidth(), getHeight()) / Math.min(Plosca.VISINA, Plosca.SIRINA);
+		return Math.min(getWidth() - 2 * PRAZEN_PROSTOR_DO_ROBA, getHeight() - 2 * PRAZEN_PROSTOR_DO_ROBA) 
+				/ Math.min(Plosca.VISINA, Plosca.SIRINA);
 	}
 	
 	/**
@@ -78,9 +80,9 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private void narisiPiko (Graphics2D g, int i, int j) {
 		double velikostBoxa = velikostBoxa();
+		g.setColor(Color.gray);
 		g.drawOval(i, j, (int)(RADIJ_PIKE * velikostBoxa), (int)(RADIJ_PIKE * velikostBoxa));
 		g.fillOval(i, j, (int)(RADIJ_PIKE * velikostBoxa), (int)(RADIJ_PIKE * velikostBoxa));
-		g.setColor(Color.gray);
 	}
 	
 	private void narisiVodoravno (Graphics2D g, int i, int j) {	
@@ -104,7 +106,20 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	
 	// # TODO funkcija narisi vodoravno in navpicno crto
 
-
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g; 	
+		double velikostBoxa = velikostBoxa();
+		for (int i = 0; i <= Plosca.SIRINA; i ++) {
+			for (int j = 0; j <= Plosca.VISINA; j ++) {
+				narisiPiko(g2, (int)(i * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA), (int)(j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA));
+			}
+		}
+		
+		
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

@@ -17,7 +17,7 @@ public class Clovek extends Strateg {
 
 	@Override
 	public void klikni(int i, int j) {
-		//TODO - iz glavnega okna	
+		okno.odigraj(new Poteza(smer, i, j));	
 	}
 	
 	

@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
+import logika.Plosca;
+import logika.Poteza;
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener{
@@ -64,12 +66,82 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		// statusna vrstica za sporocila #TODO
 		
 		// zacnemo novo igro
-		// novaIgra();
+		novaIgra();
 		
 	}
 	
-	public 
+	/**
+	 * Metoda, ki ustvari novo igro
+	 */
+	private void novaIgra() {
+		//
+		this.igra = new Igra();	
+	}
 	
+	/**
+	 * 
+	 * @param p
+	 * odigra potezo
+	 */
+	public void odigraj(Poteza p) {
+		igra.odigraj(p);
+		osveziGUI();
+		switch (igra.stanje()) {
+		case NA_POTEZI_RDEC: rdec.na_potezi(); break;
+		case NA_POTEZI_MODER: moder.na_potezi(); break;
+		case ZMAGA_RDEC: break;
+		case ZMAGA_MODER: break;
+		case NEODLOCENO: break;
+		}
+	}
+	
+	/**
+	 * Osvezuje celotni GUI (statusna vrstica)
+	 */
+	public void osveziGUI() {
+		if (igra == null) {
+			status.setText("Igra se ne izvaja");
+		} else {
+			switch(igra.stanje()) {
+			case NA_POTEZI_RDEC: status.setText("Na potezi: RDEC"); break;
+			case NA_POTEZI_MODER: status.setText("Na potezi: MODER"); break;
+			case ZMAGA_RDEC: status.setText("Zmaga: RDEC"); break;
+			case ZMAGA_MODER: status.setText("Zmaga: MODER"); break;
+			case NEODLOCENO: status.setText("Nimata za burek!"); break;
+			
+			}
+		}
+		polje.repaint();
+	}
+	
+	/**
+	 * 
+	 * @return trenutna igralna plosca (null, ce se igra ne izvaja)
+	 */
+	public Plosca getPlosca() {
+		return (igra == null ? null : igra.getPlosca());	
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * Metoda, ki ob kliku na (i, j) pravilno ukrepa 
+	 */
+	
+	// POPRAVI NEKAJ S KLIKOM NA CRTO
+	public void klikniPolje (int i, int j) {
+		if (igra != null) {
+			switch (igra.stanje()) {
+			case NA_POTEZI_RDEC: rdec.klikni(i, j); break;
+			case NA_POTEZI_MODER: moder.klikni(i, j); break;
+			default: break;
+			}
+		}
+	}
+	
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
