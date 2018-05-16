@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -85,7 +86,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.fillOval(i, j, (int)(RADIJ_PIKE * velikostBoxa), (int)(RADIJ_PIKE * velikostBoxa));
 	}
 	
-	private void narisiVodoravno (Graphics2D g, int i, int j) {	
+	private void narisiCrto (Graphics2D g, int x1, int y1, int x2, int y2) {
+		double velikostBoxa = velikostBoxa();
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
+		g.drawLine(x1, y1, x2, y2);
 	}
 	
 	/**
@@ -106,24 +110,32 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	
 	// # TODO funkcija narisi vodoravno in navpicno crto
 
-	
+	/**
+	 * Izrisuje na zaslon
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g; 	
 		double velikostBoxa = velikostBoxa();
+		
+		// PIKE
 		for (int i = 0; i <= Plosca.SIRINA; i ++) {
 			for (int j = 0; j <= Plosca.VISINA; j ++) {
 				narisiPiko(g2, (int)(i * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA), (int)(j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA));
 			}
 		}
 		
+		// CRTE
 		
 	}
-
+	
+	// #TODO
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		int velikostBoxa = (int) velikostBoxa();	
 		
 	}
 
