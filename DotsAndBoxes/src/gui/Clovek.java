@@ -1,5 +1,8 @@
 package gui;
 
+import logika.Poteza;
+import logika.Smer;
+
 public class Clovek extends Strateg {
 	private GlavnoOkno okno;
 	
@@ -16,8 +19,8 @@ public class Clovek extends Strateg {
 	}
 
 	@Override
-	public void klikni(int i, int j) {
-		okno.odigraj(new Poteza(smer, i, j));	
+	public void klikni(Smer s, int i, int j) {
+		okno.odigraj(new Poteza(s, i, j));	
 	}
 	
 	

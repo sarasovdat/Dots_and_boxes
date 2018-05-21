@@ -9,9 +9,9 @@ public class Plosca {
 	public static final int VISINA = 4;
 	public static final int VELIKOST_POLJA = SIRINA * VISINA;
 	
-	protected Box [][] polje;
-	protected Crta [][] vodoravneCrte;
-	protected Crta [][] navpicneCrte;
+	public Box [][] polje;
+	public Crta [][] vodoravneCrte;
+	public Crta [][] navpicneCrte;
 	
 	public Plosca() {
 		polje = new Box [VISINA][SIRINA];

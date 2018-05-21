@@ -1,6 +1,7 @@
 package gui;
 
 import logika.Poteza;
+import logika.Smer;
 
 import javax.swing.SwingWorker;
 
@@ -19,8 +20,8 @@ public class Racunalnik extends Strateg {
 	@Override
 	public void na_potezi() {
 		// Zacnemo razmisljati
-		//mislec = new NakljucnaInteligenca(okno); // TODO v inteligenci
-		//mislec.execute();	
+		// mislec = new NakljucnaInteligenca(okno); // TODO v inteligenci
+		// mislec.execute();	
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class Racunalnik extends Strateg {
 	}
 
 	@Override
-	public void klikni(int i, int j) {
+	public void klikni(Smer s, int i, int j) {
 	}
 
 }

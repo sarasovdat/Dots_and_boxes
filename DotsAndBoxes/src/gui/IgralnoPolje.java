@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 
 import logika.Igra;
 import logika.Plosca;
+import logika.Smer;
 import logika.Stanje;
 import logika.Box;
+import logika.Crta;
 
 
 @SuppressWarnings("serial")
@@ -86,10 +88,22 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.fillOval(i, j, (int)(RADIJ_PIKE * velikostBoxa), (int)(RADIJ_PIKE * velikostBoxa));
 	}
 	
-	private void narisiCrto (Graphics2D g, int x1, int y1, int x2, int y2) {
+	private void narisiVodoravno (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
-		g.drawLine(x1, y1, x2, y2);
+		int x1 = (int) (i - (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int x2 = (int) (i + (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int y = (int) (j + PRAZEN_PROSTOR_DO_ROBA); 
+		g.drawLine(x1, y, x2, y);
+	}
+	
+	private void narisiNavpicno (Graphics2D g, int i, int j, Color c) {
+		double velikostBoxa = velikostBoxa();
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
+		int y1 = (int) (j - (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int y2 = (int) (j + (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int x = (int) (i + PRAZEN_PROSTOR_DO_ROBA); 
+		g.drawLine(x, y1, x, y2);
 	}
 	
 	/**
@@ -99,25 +113,21 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 * @param j
 	 * V box, ki se zapre, narise X ustrezne barve (odvisno kdo ga zapre)
 	 */
-	private void narisiX (Graphics2D g, int i, int j) {
+	private void narisiX (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
 		double sirina = velikostBoxa * (1.0 - DEBELINA_CRTE - 2.0 * PRAZEN_PROSTOR_DO_ROBA);
 		double x = velikostBoxa * (i + 0.5* DEBELINA_CRTE + PRAZEN_PROSTOR_DO_ROBA);
 		double y = velikostBoxa * (j + 0.5* DEBELINA_CRTE + PRAZEN_PROSTOR_DO_ROBA);
-		//g.setColor(arg0);
 	}
 	
 	
 	// # TODO funkcija narisi vodoravno in navpicno crto
 
-	/**
-	 * Izrisuje na zaslon
-	 */
-	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g; 	
 		double velikostBoxa = velikostBoxa();
+		Plosca plosca = okno.getPlosca();
 		
 		// PIKE
 		for (int i = 0; i <= Plosca.SIRINA; i ++) {
@@ -125,18 +135,60 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 				narisiPiko(g2, (int)(i * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA), (int)(j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA));
 			}
 		}
-		
+
 		// CRTE
-		
+		// Vodoravne crte
+		Crta [][] vodoravneCrte = plosca.vodoravneCrte;
+
+		for (int i = 0; i < (Plosca.VISINA + 1); i ++) {
+			for (int j = 0; j < Plosca.SIRINA; j ++) {
+				switch(vodoravneCrte[i][j]){
+				case RDEC: narisiVodoravno(g2, i, j, Color.RED); break;
+				case MODER: narisiVodoravno(g2, i, j, Color.BLUE); break;
+				default: break;
+				}
+			}
+		}
+
+		// Navpicne crte
+		Crta [][] navpicneCrte = plosca.navpicneCrte;
+		for (int i = 0; i < Plosca.VISINA; i ++) {
+			for (int j = 0; j < (Plosca.SIRINA + 1); j ++) {
+				switch (navpicneCrte[i][j]) {
+				case RDEC: narisiNavpicno(g2, i, j, Color.RED); break;
+				case MODER: narisiNavpicno(g2, i, j, Color.BLUE); break;
+				default: break;
+				}
+			}
+		}
+
+
+		// BOXI - X
+		Box [][] box = plosca.polje;
+		for (int i = 0; i < Plosca.VISINA; i ++) {
+			for (int j = 0; j < Plosca.SIRINA; j ++) {
+				switch (box[i][j]) {
+				case RDEC: narisiX(g2, i, j, Color.RED); break;
+				case MODER: narisiX(g2, i, j, Color.BLUE); break;
+				default: break;
+				}	
+			}
+		}	
 	}
 	
-	// #TODO
+	// TODO
+	// Na koncu naj poklice klikni.Polje(smer, i, j)
+	// Iz x in y morva dobit smer, i, j
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
 		int velikostBoxa = (int) velikostBoxa();	
 		
+		int i = x / velikostBoxa;
+		int j = y / velikostBoxa;
+		
+		okno.klikniPolje(Smer.DOL, i, j);
 	}
 
 	@Override

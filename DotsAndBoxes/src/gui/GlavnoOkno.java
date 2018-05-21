@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import javax.swing.JMenuItem;
 import logika.Igra;
 import logika.Plosca;
 import logika.Poteza;
+import logika.Smer;
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener{
@@ -63,7 +65,10 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		izgledPolja.weighty = 1.0;
 		getContentPane().add(polje, izgledPolja);
 		
-		// statusna vrstica za sporocila #TODO
+		// statusna vrstica za sporocila 
+		status = new JLabel();
+		status.setFont(new Font(status.getFont().getName(),
+				status.getFont().getStyle(), 20));
 		
 		// zacnemo novo igro
 		novaIgra();
@@ -74,8 +79,9 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 * Metoda, ki ustvari novo igro
 	 */
 	private void novaIgra() {
-		//
-		this.igra = new Igra();	
+		this.igra = new Igra();
+		rdec = new Clovek(this);
+		moder = new Clovek(this);
 	}
 	
 	/**
@@ -130,11 +136,11 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 */
 	
 	// POPRAVI NEKAJ S KLIKOM NA CRTO
-	public void klikniPolje (int i, int j) {
+	public void klikniPolje (Smer s, int i, int j) {
 		if (igra != null) {
 			switch (igra.stanje()) {
-			case NA_POTEZI_RDEC: rdec.klikni(i, j); break;
-			case NA_POTEZI_MODER: moder.klikni(i, j); break;
+			case NA_POTEZI_RDEC: rdec.klikni(s, i, j); break;
+			case NA_POTEZI_MODER: moder.klikni(s, i, j); break;
 			default: break;
 			}
 		}

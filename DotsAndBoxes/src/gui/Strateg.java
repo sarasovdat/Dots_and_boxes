@@ -1,5 +1,7 @@
 package gui;
 
+import logika.Smer;
+
 /**
  * 
  * @author Sara
@@ -24,6 +26,6 @@ public abstract class Strateg {
 	 * @param j
 	 * Glavno okno klice to metodo, ko uporabnik klikne na polje (i, j).
 	 */
-	public abstract void klikni(int i, int j);
+	public abstract void klikni(Smer s, int i, int j);
 
 }
