@@ -1,7 +1,5 @@
 package logika;
 
-import java.awt.Color;
-
 public enum Stanje {
 	NA_POTEZI_RDEC, 
 	NA_POTEZI_MODER, 

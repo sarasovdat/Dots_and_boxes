@@ -30,7 +30,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * Relativna debelina crte
 	 */
-	private final static double DEBELINA_CRTE = 0.2;
+	private final static double DEBELINA_CRTE = 0.15;
 	
 	/**
 	 * Relativen prazen prostor od pik do roba polja
@@ -50,20 +50,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	public Dimension getPreferredSize() {
 		return new Dimension (400, 400);
 	}
-	
-/*	*//**
-	 * 
-	 * @param s
-	 * @return barva igralca, ki je na potezi
-	 *//*
-	public static Color barvaIgralcaNaPotezi(Stanje s) {
-		if (s == Stanje.NA_POTEZI_RDEC) {
-			Color c = Color.red;
-		} else if (s == Stanje.NA_POTEZI_MODER) {
-			Color c = Color.blue;
-		}
-		return c;
-	}*/
+
 	
 	/**
 	 * 
@@ -97,9 +84,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private void narisiVodoravno (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
+		g.setColor(c);
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
-		int x1 = (int) (i - (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
-		int x2 = (int) (i + (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int x1 = (int) (i + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+		int x2 = (int) (i + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 		int y = (int) (j + PRAZEN_PROSTOR_DO_ROBA); 
 		g.drawLine(x1, y, x2, y);
 	}
@@ -113,9 +101,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private void narisiNavpicno (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
+		g.setColor(c);
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
-		int y1 = (int) (j - (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
-		int y2 = (int) (j + (int)(velikostBoxa / 2) + PRAZEN_PROSTOR_DO_ROBA);
+		int y1 = (int) (j + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+		int y2 = (int) (j + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 		int x = (int) (i + PRAZEN_PROSTOR_DO_ROBA); 
 		g.drawLine(x, y1, x, y2);
 	}
@@ -152,25 +141,24 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 		// CRTE
 		// Vodoravne crte
-		Crta [][] vodoravneCrte = plosca.vodoravneCrte;
-
+		Crta [][] vodoravneCrte = plosca.getVodoravneCrte();
 		for (int i = 0; i < (Plosca.VISINA + 1); i ++) {
 			for (int j = 0; j < Plosca.SIRINA; j ++) {
 				switch(vodoravneCrte[i][j]){
-				case RDEC: narisiVodoravno(g2, i, j, Color.RED); break;
-				case MODER: narisiVodoravno(g2, i, j, Color.BLUE); break;
+				case RDEC: narisiVodoravno(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.RED); break;
+				case MODER: narisiVodoravno(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.BLUE); break;
 				default: break;
 				}
 			}
 		}
 
 		// Navpicne crte
-		Crta [][] navpicneCrte = plosca.navpicneCrte;
+		Crta [][] navpicneCrte = plosca.getNavpicneCrte();
 		for (int i = 0; i < Plosca.VISINA; i ++) {
 			for (int j = 0; j < (Plosca.SIRINA + 1); j ++) {
 				switch (navpicneCrte[i][j]) {
-				case RDEC: narisiNavpicno(g2, i, j, Color.RED); break;
-				case MODER: narisiNavpicno(g2, i, j, Color.BLUE); break;
+				case RDEC: narisiNavpicno(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.RED); break;
+				case MODER: narisiNavpicno(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.BLUE); break;
 				default: break;
 				}
 			}
@@ -178,12 +166,12 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 
 		// BOXI - X
-		Box [][] box = plosca.polje;
+		Box [][] box = plosca.getPolje();
 		for (int i = 0; i < Plosca.VISINA; i ++) {
 			for (int j = 0; j < Plosca.SIRINA; j ++) {
 				switch (box[i][j]) {
-				case RDEC: narisiX(g2, i, j, Color.RED); break;
-				case MODER: narisiX(g2, i, j, Color.BLUE); break;
+				case RDEC: narisiX(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.RED); break;
+				case MODER: narisiX(g2, i * (int)velikostBoxa, j * (int)velikostBoxa, Color.BLUE); break;
 				default: break;
 				}	
 			}
@@ -199,9 +187,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int y = e.getY();
 		int velikostBoxa = (int) velikostBoxa();	
 		
-		int i = x / velikostBoxa;
-		int j = y / velikostBoxa;
-		
+		int i = x / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
+		int j = y / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
+		//zacasno izpisujemo kje se je zgodil klik, da vemo kaj se dogaja 
+		System.out.print(i);
+		System.out.print(j);
 		okno.klikniPolje(Smer.DOL, i, j);
 	}
 

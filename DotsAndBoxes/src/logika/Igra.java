@@ -23,10 +23,10 @@ public class Igra {
 		int steviloBoxovModer = 0;
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if (plosca.polje[i][j] == Box.RDEC) {
+				if (plosca.getPolje()[i][j] == Box.RDEC) {
 					steviloBoxovRdec++;
 				}
-				else if (plosca.polje[i][j] == Box.MODER) {
+				else if (plosca.getPolje()[i][j] == Box.MODER) {
 					steviloBoxovModer++;
 				}
 			}
@@ -71,7 +71,7 @@ public class Igra {
 		//Preverimo vodoravne crte
 		for (int i = 0; i < (Plosca.VISINA + 1); i++) {
 			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if(plosca.vodoravneCrte[i][j] == Crta.PRAZNO) {
+				if(plosca.getVodoravneCrte()[i][j] == Crta.PRAZNO) {
 					moznePoteze.add(new Poteza(Smer.DESNO, i, j));
 				}
 			}
@@ -79,7 +79,7 @@ public class Igra {
 		// Preverimo navpicne crte
 		for (int i = 0; i < Plosca.VISINA; i++) {
 			for (int j = 0; j < (Plosca.SIRINA + 1); j++) {
-				if(plosca.navpicneCrte[i][j] == Crta.PRAZNO) {
+				if(plosca.getNavpicneCrte()[i][j] == Crta.PRAZNO) {
 					moznePoteze.add(new Poteza(Smer.DOL, i, j));
 				}
 			}
@@ -137,10 +137,10 @@ public class Igra {
 	 * @return true, ce so vse crte, ki omejujejo kvadrat na lokaciji l ze zapolnjene
 	 */
 	public boolean jeObkrozen(Lokacija l) {
-		if (plosca.vodoravneCrte[l.i][l.j] != Crta.PRAZNO
-				&& plosca.vodoravneCrte[l.i + 1][l.j] != Crta.PRAZNO
-				&& plosca.navpicneCrte[l.i][l.j] != Crta.PRAZNO
-				&& plosca.navpicneCrte[l.i][l.j +1] != Crta.PRAZNO) {
+		if (plosca.getVodoravneCrte()[l.i][l.j] != Crta.PRAZNO
+				&& plosca.getVodoravneCrte()[l.i + 1][l.j] != Crta.PRAZNO
+				&& plosca.getNavpicneCrte()[l.i][l.j] != Crta.PRAZNO
+				&& plosca.getNavpicneCrte()[l.i][l.j +1] != Crta.PRAZNO) {
 			return true;
 		} else {
 			return false;
@@ -151,9 +151,9 @@ public class Igra {
 		boolean smo_zapolnili = false;
 		Box b = naPotezi.box();
 		for (Lokacija l : sosednjiBoxi(p)) {
-			if (jeObkrozen(l) && plosca.polje[l.i][l.j] == Box.PRAZNO) {
+			if (jeObkrozen(l) && plosca.getPolje()[l.i][l.j] == Box.PRAZNO) {
 				smo_zapolnili = true;
-		        plosca.polje[l.i][l.j] = b;
+		        plosca.getPolje()[l.i][l.j] = b;
 		    }
 		}
 		return smo_zapolnili;
@@ -171,10 +171,10 @@ public class Igra {
 		int i = p.getI();
 		int j = p.getJ();
 		if (p.getSmer() == Smer.DOL) {
-			if (plosca.navpicneCrte[i][j] != Crta.PRAZNO) {
+			if (plosca.getNavpicneCrte()[i][j] != Crta.PRAZNO) {
 				return false;
 			} else {
-				plosca.navpicneCrte[i][j] = c;
+				plosca.getNavpicneCrte()[i][j] = c;
 				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
 				if (!smo_zapolnili_kvadrat) {
 					naPotezi = naPotezi.nasprotnik();
@@ -182,10 +182,10 @@ public class Igra {
 				return true;
 			}
 		} else if (p.getSmer() == Smer.DESNO){
-			if (plosca.vodoravneCrte[i][j] != Crta.PRAZNO) {
+			if (plosca.getVodoravneCrte()[i][j] != Crta.PRAZNO) {
 				return false;
 			} else {
-				plosca.vodoravneCrte[i][j] = c;
+				plosca.getVodoravneCrte()[i][j] = c;
 				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
 				if (!smo_zapolnili_kvadrat) {
 					naPotezi = naPotezi.nasprotnik();

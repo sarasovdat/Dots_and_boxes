@@ -69,6 +69,11 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 				status.getFont().getStyle(), 20));
+		GridBagConstraints status_layout = new GridBagConstraints();
+		status_layout.gridx = 0;
+		status_layout.gridy = 1;
+		status_layout.anchor = GridBagConstraints.CENTER;
+		getContentPane().add(status, status_layout);
 		
 		// zacnemo novo igro
 		novaIgra();
@@ -79,9 +84,18 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 * Metoda, ki ustvari novo igro
 	 */
 	private void novaIgra() {
+		if (rdec != null) { rdec.prekini(); }
+		if (moder != null) { moder.prekini(); }
 		this.igra = new Igra();
 		rdec = new Clovek(this);
 		moder = new Clovek(this);
+		switch (igra.stanje()) {
+		case NA_POTEZI_RDEC: rdec.na_potezi(); break;
+		case NA_POTEZI_MODER: moder.na_potezi(); break;
+		default: break;
+		}
+		osveziGUI();
+		repaint();
 	}
 	
 	/**

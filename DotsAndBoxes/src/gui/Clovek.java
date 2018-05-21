@@ -6,8 +6,8 @@ import logika.Smer;
 public class Clovek extends Strateg {
 	private GlavnoOkno okno;
 	
-	public Clovek(GlavnoOkno master) {
-		this.okno = master;
+	public Clovek(GlavnoOkno okno) {
+		this.okno = okno;
 	}
 
 	@Override
