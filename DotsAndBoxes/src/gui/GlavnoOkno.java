@@ -65,7 +65,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		izgledPolja.weighty = 1.0;
 		getContentPane().add(polje, izgledPolja);
 		
-		// statusna vrstica za sporocila 
+		// statusna vrstica za sporocila - dokoncaj
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 				status.getFont().getStyle(), 20));

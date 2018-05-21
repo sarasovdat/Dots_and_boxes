@@ -20,6 +20,7 @@ public abstract class Strateg {
 	 */
 	public abstract void prekini();
 	
+	// Dodale smer
 	/**
 	 * 
 	 * @param i

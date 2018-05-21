@@ -88,6 +88,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.fillOval(i, j, (int)(RADIJ_PIKE * velikostBoxa), (int)(RADIJ_PIKE * velikostBoxa));
 	}
 	
+	/**
+	 * 
+	 * @param g
+	 * @param i
+	 * @param j
+	 * @param c
+	 */
 	private void narisiVodoravno (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
@@ -97,6 +104,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.drawLine(x1, y, x2, y);
 	}
 	
+	/**
+	 * 
+	 * @param g
+	 * @param i
+	 * @param j
+	 * @param c
+	 */
 	private void narisiNavpicno (Graphics2D g, int i, int j, Color c) {
 		double velikostBoxa = velikostBoxa();
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));

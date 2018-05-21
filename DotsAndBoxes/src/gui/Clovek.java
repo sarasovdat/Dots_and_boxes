@@ -18,6 +18,7 @@ public class Clovek extends Strateg {
 	public void prekini() {	
 	}
 
+	// dodale smer
 	@Override
 	public void klikni(Smer s, int i, int j) {
 		okno.odigraj(new Poteza(s, i, j));	
