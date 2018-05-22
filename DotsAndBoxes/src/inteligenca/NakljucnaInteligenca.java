@@ -14,7 +14,6 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 	
 	public NakljucnaInteligenca(GlavnoOkno okno) {
 		this.okno = okno;
-		
 	}
 
 	@Override
