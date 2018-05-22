@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
@@ -44,8 +46,11 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 */
 	private Strateg moder;
 	
-	// Izbire v menujih #TODO
-	private JMenuItem novaIgra;
+	// Izbire v menujih 
+	private JMenuItem igraClovekRacunalnik;
+	private JMenuItem igraRacunalnikClovek;
+	private JMenuItem igraClovekClovek;
+	private JMenuItem igraRacunalnikRacunalnik;
 	
 	
 	public GlavnoOkno() {
@@ -53,7 +58,27 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 		
-		// menu #TODO
+		// menu 
+		JMenuBar menu_bar = new JMenuBar();
+		this.setJMenuBar(menu_bar);
+		JMenu igra_menu = new JMenu("Igra");
+		menu_bar.add(igra_menu);
+
+		igraClovekRacunalnik = new JMenuItem("Èlovek – raèunalnik");
+		igra_menu.add(igraClovekRacunalnik);
+		igraClovekRacunalnik.addActionListener(this);
+		
+		igraRacunalnikClovek = new JMenuItem("Raèunalnik – èlovek");
+		igra_menu.add(igraRacunalnikClovek);
+		igraRacunalnikClovek.addActionListener(this);
+
+		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik – raèunalnik");
+		igra_menu.add(igraRacunalnikRacunalnik);
+		igraRacunalnikRacunalnik.addActionListener(this);
+
+		igraClovekClovek = new JMenuItem("Èlovek – èlovek");
+		igra_menu.add(igraClovekClovek);
+		igraClovekClovek.addActionListener(this);
 		
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -173,7 +198,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 * 
 	 * @return kopijo trenutne igre
 	 */
-	public Igra kopirajIgro() {
-		return new Igra(igra);
-	}
+	//public Igra kopirajIgro() {
+		//return new Igra(igra);
+	//}
 }
