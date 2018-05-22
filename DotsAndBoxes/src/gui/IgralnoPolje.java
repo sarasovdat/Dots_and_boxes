@@ -30,10 +30,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * Relativna debelina crte
 	 */
-	private final static double DEBELINA_CRTE = 0.15;
+	private final static double DEBELINA_CRTE = 0.05;
 	
 	/**
-	 * Relativen prazen prostor od pik do roba polja
+	 * Prazen prostor od pik do roba polja
 	 */
 	private final static double PRAZEN_PROSTOR_DO_ROBA = 30;
 	
@@ -88,7 +88,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
 		int x1 = (int) (i + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 		int x2 = (int) (i + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
-		int y = (int) (j + PRAZEN_PROSTOR_DO_ROBA); 
+		int y = (int) (j + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
 		g.drawLine(x1, y, x2, y);
 	}
 	
@@ -105,7 +105,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
 		int y1 = (int) (j + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 		int y2 = (int) (j + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
-		int x = (int) (i + PRAZEN_PROSTOR_DO_ROBA); 
+		int x = (int) (i + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
 		g.drawLine(x, y1, x, y2);
 	}
 	
@@ -126,6 +126,9 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	
 	// # TODO funkcija narisi vodoravno in navpicno crto
 
+	/**
+	 * Rise na igralno polje
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g; 	
@@ -187,12 +190,52 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int y = e.getY();
 		int velikostBoxa = (int) velikostBoxa();	
 		
-		int i = x / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
-		int j = y / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
-		//zacasno izpisujemo kje se je zgodil klik, da vemo kaj se dogaja 
-		System.out.print(i);
-		System.out.print(j);
-		okno.klikniPolje(Smer.DOL, i, j);
+		int a = x / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
+		int b = y / (velikostBoxa + (int)PRAZEN_PROSTOR_DO_ROBA);
+		
+		// Dovoljeni kliki
+		if (x < velikostBoxa * Plosca.SIRINA + 2 * (int)PRAZEN_PROSTOR_DO_ROBA &&
+				y < velikostBoxa * Plosca.VISINA + 2 * (int)PRAZEN_PROSTOR_DO_ROBA){
+		
+			for (int i = 0; i < (Plosca.VISINA + 1); i ++) {
+				for (int j = 0; j < Plosca.SIRINA; j ++) {
+					int x1 = (int) (i * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+					int x2 = (int) (i * velikostBoxa + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
+					int y0 = (int) (j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
+					// To ni ok, ker dovoljen prostor racuna glede na y, ki smo ga dobili od klika, in ne glede na y0 
+					// (ne dela za y0)
+					int y1 = y - (int)DEBELINA_CRTE * velikostBoxa * 2;
+					int y2 = y + (int)DEBELINA_CRTE * velikostBoxa * 2;
+					
+					if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+						Smer s = Smer.DESNO;
+						okno.klikniPolje(s, a, b);
+					}
+				}
+			}
+			for (int i = 0; i < Plosca.VISINA; i ++) {
+				for (int j = 0; j < (Plosca.SIRINA + 1); j ++) {
+					int y1 = (int) (j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+					int y2 = (int) (j * velikostBoxa + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
+					int x0 = (int) (i * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
+					// Enako kot zgoraj
+					int x1 = x - (int)DEBELINA_CRTE * velikostBoxa * 2;
+					int x2 = x + (int)DEBELINA_CRTE * velikostBoxa * 2;
+					
+					if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+						Smer s = Smer.DOL;
+						okno.klikniPolje(s, a, b);
+					}
+				}
+			}
+		}	
+				
+		// Zacasno izpisujemo, kje se je zgodil klik, da vemo, kaj se dogaja 
+		System.out.print(a);
+		System.out.print(b);
+		// okno.klikniPolje(Smer.DOL, i, j);
+		
+		
 	}
 
 	@Override
