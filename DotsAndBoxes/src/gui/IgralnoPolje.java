@@ -213,6 +213,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					}
 				}
 			}
+			
 			for (int i = 0; i < Plosca.VISINA; i ++) {
 				for (int j = 0; j < (Plosca.SIRINA + 1); j ++) {
 					int y1 = (int) (j * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
