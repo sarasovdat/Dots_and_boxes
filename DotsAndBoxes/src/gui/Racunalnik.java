@@ -21,7 +21,7 @@ public class Racunalnik extends Strateg {
 	@Override
 	public void na_potezi() {
 		// Zacnemo razmisljati
-		mislec = new NakljucnaInteligenca(okno); // TODO v inteligenci
+		mislec = new NakljucnaInteligenca(okno); 
 		mislec.execute();	
 	}
 
