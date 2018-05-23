@@ -92,7 +92,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	private void narisiZacetnoVodoravno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
 		g.setColor(c);
-		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 2));
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 3));
 		int x1 = (int) (sir + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 		int x2 = (int) (sir + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 		int y = (int) (vis + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
@@ -110,7 +110,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	private void narisiZacetnoNavpicno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
 		g.setColor(c);
-		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 2));
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 3));
 		int y1 = (int) (vis + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 		int y2 = (int) (vis + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 		int x = (int) (sir + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
@@ -118,7 +118,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * 
+	 * Rise vosoravne crte za poteze
 	 * @param g
 	 * @param sir
 	 * @param vis
@@ -136,7 +136,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	
 	
 	/**
-	 * 
+	 * Rise navpicne crte za poteze
 	 * @param g
 	 * @param sir
 	 * @param vis
