@@ -15,7 +15,11 @@ import logika.Smer;
 import logika.Box;
 import logika.Crta;
 
-
+/**
+ * Obmocje, kjer je narisano igralno polje
+ * @author Sara
+ *
+ */
 @SuppressWarnings("serial")
 public class IgralnoPolje extends JPanel implements MouseListener {
 	private GlavnoOkno okno;
@@ -79,6 +83,41 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	}
 	
 	/**
+	 * Narise svetlo sive vodoravne crte, ki se pojavijo takoj na zacetku (mreza)
+	 * @param g
+	 * @param sir
+	 * @param vis
+	 * @param c
+	 */
+	private void narisiZacetnoVodoravno (Graphics2D g, int sir, int vis, Color c) {
+		double velikostBoxa = velikostBoxa();
+		g.setColor(c);
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 2));
+		int x1 = (int) (sir + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+		int x2 = (int) (sir + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
+		int y = (int) (vis + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
+		g.drawLine(x1, y, x2, y);
+	}
+	
+	
+	/**
+	 * Narise svetlo sive navpicne crte, ki se pojavijo takoj na zacetku (mreza)
+	 * @param g
+	 * @param sir
+	 * @param vis
+	 * @param c
+	 */
+	private void narisiZacetnoNavpicno (Graphics2D g, int sir, int vis, Color c) {
+		double velikostBoxa = velikostBoxa();
+		g.setColor(c);
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE) / 2));
+		int y1 = (int) (vis + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
+		int y2 = (int) (vis + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
+		int x = (int) (sir + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
+		g.drawLine(x, y1, x, y2);
+	}
+	
+	/**
 	 * 
 	 * @param g
 	 * @param sir
@@ -94,6 +133,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int y = (int) (vis + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
 		g.drawLine(x1, y, x2, y);
 	}
+	
 	
 	/**
 	 * 
@@ -150,6 +190,22 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 		// CRTE
 		
+		// Zacetne tanke crte (mreza)
+		// Vodoravne
+		for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
+			for (int sir = 0; sir < (Plosca.SIRINA); sir ++) {
+				narisiZacetnoVodoravno(g2, sir *  (int)velikostBoxa, vis * (int)velikostBoxa, Color.LIGHT_GRAY);			
+			}
+		}
+		
+		// Navpicne
+		for (int vis = 0; vis < (Plosca.VISINA); vis ++) {
+			for (int sir = 0; sir < (Plosca.SIRINA + 1); sir ++) {
+				narisiZacetnoNavpicno(g2, sir *  (int)velikostBoxa, vis * (int)velikostBoxa, Color.LIGHT_GRAY);				
+			}
+		}
+			
+		
 		// Vodoravne crte
 		Crta [][] vodoravneCrte = plosca.getVodoravneCrte();
 		for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
@@ -174,7 +230,6 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 			}
 		}
 
-
 		// BOXI - X
 		Box [][] box = plosca.getPolje();
 		for (int vis = 0; vis < Plosca.VISINA; vis ++) {
@@ -182,7 +237,6 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 				switch (box[vis][sir]) {
 				case RDEC: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.RED); break;
 				case MODER: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.BLUE); break;
-				//case PRAZNO: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.BLACK); break;
 				default: break;
 				}	
 			}
@@ -240,8 +294,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					}
 				}
 			}
-		}	
-		
+		}		
 	}
 
 	@Override

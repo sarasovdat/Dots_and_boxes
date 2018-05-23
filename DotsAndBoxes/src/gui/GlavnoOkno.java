@@ -13,10 +13,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
+import logika.Igralec;
 import logika.Plosca;
 import logika.Poteza;
 import logika.Smer;
 
+
+/**
+ * Glavno okno - hrani trenutno stanje igre in nadzoruje njen potek
+ * @author Sara
+ *
+ */
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener{
 	
@@ -100,20 +107,24 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 		
-		// zacnemo novo igro
-		novaIgra();
+		// zacnemo novo igro cloveka proti racunalniku
+		novaIgra(new Clovek(this, Igralec.RDEC),
+				new Racunalnik(this, Igralec.MODER));
 		
 	}
 	
 	/**
 	 * Metoda, ki ustvari novo igro
 	 */
-	private void novaIgra() {
+	private void novaIgra(Strateg novirdec, Strateg novimoder) {
 		if (rdec != null) { rdec.prekini(); }
 		if (moder != null) { moder.prekini(); }
+		// Ustvarimo novo igro
 		this.igra = new Igra();
-		rdec = new Racunalnik(this);
-		moder = new Racunalnik(this);
+		// Ustvarimo nove stratege
+		rdec = novirdec;
+		moder = novimoder;
+		
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: rdec.na_potezi(); break;
 		case NA_POTEZI_MODER: moder.na_potezi(); break;
@@ -185,9 +196,23 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == igraClovekRacunalnik) {
+			novaIgra(new Clovek(this, Igralec.RDEC),
+					  new Racunalnik(this, Igralec.MODER));
+		}
+		else if (e.getSource() == igraRacunalnikClovek) {
+			novaIgra(new Racunalnik(this, Igralec.RDEC),
+					  new Clovek(this, Igralec.MODER));
+		}
+		else if (e.getSource() == igraRacunalnikRacunalnik) {
+			novaIgra(new Racunalnik(this, Igralec.RDEC),
+					  new Racunalnik(this, Igralec.MODER));
+		}
+		else if (e.getSource() == igraClovekClovek) {
+			novaIgra(new Clovek(this, Igralec.RDEC),
+			          new Clovek(this, Igralec.MODER));
+		}
 	}
 
 	/**
