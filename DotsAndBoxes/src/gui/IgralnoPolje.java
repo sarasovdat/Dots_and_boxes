@@ -165,7 +165,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int x = (int)((sir + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
 		int y = (int)((vis + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
 		g.setColor(c);
-		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE / 1.5)));
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE / 1.3)));
 		g.drawLine(x, y, (x + sirina), (y + sirina));
 		g.drawLine((x + sirina), y, x, (y + sirina));
 	}
