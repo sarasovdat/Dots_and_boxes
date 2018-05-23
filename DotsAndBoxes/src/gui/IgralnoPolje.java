@@ -265,9 +265,6 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					int x1 = (int) (sir * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 					int x2 = (int) ((sir + 1) * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 					int y0 = (int) (vis * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
-					// To ni ok, ker dovoljen prostor racuna glede na y, ki smo ga dobili od klika, in ne glede na y0 
-					// (ne dela za y0)
-					
 					int y1 = y0 - (int)(DEBELINA_CRTE * velikostBoxa * 1);
 					int y2 = y0 + (int)(DEBELINA_CRTE * velikostBoxa * 1);
 					
@@ -284,9 +281,8 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					int y1 = (int) (vis * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 					int y2 = (int) (vis * velikostBoxa + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 					int x0 = (int) (sir * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
-					// Enako kot zgoraj
-					int x1 = x0 - (int)(DEBELINA_CRTE * velikostBoxa * 1) - (int)(RADIJ_PIKE * velikostBoxa);
-					int x2 = x0 + (int)(DEBELINA_CRTE * velikostBoxa * 1) + (int)(RADIJ_PIKE + velikostBoxa);
+					int x1 = x0 - (int)(DEBELINA_CRTE * velikostBoxa * 1);
+					int x2 = x0 + (int)(DEBELINA_CRTE * velikostBoxa * 1);
 					
 					if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
 						Smer s = Smer.DOL;
