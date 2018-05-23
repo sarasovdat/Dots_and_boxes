@@ -37,6 +37,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private final static double PRAZEN_PROSTOR_DO_ROBA = 30;
 	
+	/**
+	 * Prazen prostor okoli X (X se narise v zapolnjen kvadratek)
+	 */
+	private final static double PROSTOR_OKOLI_X = 0.1;
+	
 	public IgralnoPolje (GlavnoOkno okno) {
 			super();
 			setBackground(Color.white);
@@ -118,9 +123,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private void narisiX (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
-		double sirina = velikostBoxa * (1.0 - DEBELINA_CRTE - 2.0 * PRAZEN_PROSTOR_DO_ROBA);
-		double x = velikostBoxa * (sir + 0.5* DEBELINA_CRTE + PRAZEN_PROSTOR_DO_ROBA);
-		double y = velikostBoxa * (vis + 0.5* DEBELINA_CRTE + PRAZEN_PROSTOR_DO_ROBA);
+		int sirina = (int)(velikostBoxa * (1.0 - DEBELINA_CRTE - 2.0 * PROSTOR_OKOLI_X));
+		int x = (int)((velikostBoxa * (sir + 0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
+		int y = (int)((velikostBoxa * (vis + 0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
+		g.setColor(c);
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
+		g.drawLine((int)x, (int)y, (int)(x + sirina), (int)(y + sirina));
+		g.drawLine((int)(x + sirina), (int)y, (int)x, (int)(y + sirina));
 	}
 	
 	
@@ -142,6 +151,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		}
 
 		// CRTE
+		
 		// Vodoravne crte
 		Crta [][] vodoravneCrte = plosca.getVodoravneCrte();
 		for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
@@ -193,7 +203,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int b = Math.min((y  - (int)PRAZEN_PROSTOR_DO_ROBA) / (velikostBoxa), Plosca.VISINA);
 		
 		// Dovoljeni kliki
-		if (true || (x < velikostBoxa * Plosca.SIRINA + 2 * (int)PRAZEN_PROSTOR_DO_ROBA &&
+		if ((x < velikostBoxa * Plosca.SIRINA + 2 * (int)PRAZEN_PROSTOR_DO_ROBA &&
 				y < velikostBoxa * Plosca.VISINA + 2 * (int)PRAZEN_PROSTOR_DO_ROBA)){
 		
 			// VODORAVNE CRTE

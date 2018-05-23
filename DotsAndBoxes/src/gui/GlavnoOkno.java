@@ -169,12 +169,10 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	
 	/**
 	 * 
-	 * @param i
-	 * @param j
-	 * Metoda, ki ob kliku na (i, j) pravilno ukrepa 
+	 * @param vis
+	 * @param sir
+	 * Metoda, ki ob kliku na (vis, sir) pravilno ukrepa 
 	 */
-	
-	// POPRAVI NEKAJ S KLIKOM NA CRTO
 	public void klikniPolje (Smer s, int vis, int sir) {
 		if (igra != null) {
 			switch (igra.stanje()) {

@@ -31,6 +31,7 @@ public class Igra {
 				}
 			}
 		}
+		
 		// KONEC IGRE (ko so zapolnjeni vsi boxi)
 		if (steviloBoxovRdec + steviloBoxovModer == Plosca.VISINA * Plosca.SIRINA) {
 			// Kateri igralec ima vec zapoljnenih boxov?
