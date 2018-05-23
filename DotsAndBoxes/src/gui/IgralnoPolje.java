@@ -124,12 +124,12 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	private void narisiX (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
 		int sirina = (int)(velikostBoxa * (1.0 - DEBELINA_CRTE - 2.0 * PROSTOR_OKOLI_X));
-		int x = (int)((velikostBoxa * (sir + 0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
-		int y = (int)((velikostBoxa * (vis + 0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
+		int x = (int)((sir + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
+		int y = (int)((vis + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
 		g.setColor(c);
 		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
-		g.drawLine((int)x, (int)y, (int)(x + sirina), (int)(y + sirina));
-		g.drawLine((int)(x + sirina), (int)y, (int)x, (int)(y + sirina));
+		g.drawLine(x, y, (x + sirina), (y + sirina));
+		g.drawLine((x + sirina), y, x, (y + sirina));
 	}
 	
 	
@@ -184,6 +184,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 				switch (box[vis][sir]) {
 				case RDEC: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.RED); break;
 				case MODER: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.BLUE); break;
+				//case PRAZNO: narisiX(g2, sir * (int)velikostBoxa, vis * (int)velikostBoxa, Color.BLACK); break;
 				default: break;
 				}	
 			}
@@ -209,7 +210,6 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 			// VODORAVNE CRTE
 			for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
 				for (int sir = 0; sir < (Plosca.SIRINA + 1); sir ++) {
-					System.out.println(".");
 					int x1 = (int) (sir * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + 2 * RADIJ_PIKE * velikostBoxa);
 					int x2 = (int) ((sir + 1) * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 					int y0 = (int) (vis * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 

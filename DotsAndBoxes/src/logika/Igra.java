@@ -14,6 +14,36 @@ public class Igra {
 	}
 	
 	/**
+	 * Nova kopija dane igre
+	 * 
+	 * @param igra
+	 */
+	public Igra(Igra igra) {
+		Box [][] polje = new Box [Plosca.VISINA][Plosca.SIRINA];
+		Crta [][] vodoravneCrte = new Crta [Plosca.VISINA + 1][Plosca.SIRINA];
+		Crta [][] navpicneCrte = new Crta [Plosca.VISINA][Plosca.SIRINA + 1];
+		
+		for (int vis = 0; vis < Plosca.VISINA; vis++) {
+			for (int sir = 0; sir < Plosca.SIRINA; sir++) {
+				plosca.getPolje()[vis][sir] = igra.plosca.getPolje()[vis][sir];
+			}
+		}
+		
+		
+		for (int vis = 0; vis < (Plosca.VISINA + 1); vis++) {
+			for (int sir = 0; sir < Plosca.SIRINA; sir++) {
+				plosca.getVodoravneCrte()[vis][sir] = igra.plosca.getVodoravneCrte()[vis][sir];
+			}
+		}
+		
+		for (int vis = 0; vis < Plosca.VISINA; vis++) {
+			for (int sir = 0; sir < (Plosca.SIRINA + 1); sir++) {
+				plosca.getNavpicneCrte()[vis][sir] = igra.plosca.getNavpicneCrte()[vis][sir];
+			}
+		} this.naPotezi = igra.naPotezi;
+	}
+	
+	/**
 	 * 
 	 * @return Trenutno stanje igre. 
 	 * Ko je igre konec, nastavi stevilo rdecih in modrih kvadratkov.
@@ -96,21 +126,22 @@ public class Igra {
 		LinkedList<Lokacija> sosednji = new LinkedList<Lokacija>();			
 		Lokacija l = new Lokacija();
 		Lokacija k = new Lokacija();
-		if (p.getVis() == 0 || p.getSir() == 0 || p.getVis() == Plosca.VISINA || p.getSir() == Plosca.SIRINA) {	
 		// Primeri, ko dodamo le en box na seznam lokacij
-			if (p.getVis() == 0 && p.getSmer() == Smer.DESNO) {
-				l.vis = 0;
-				l.sir = p.getSir();
-			} else if (p.getVis() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
-				l.vis = (p.getVis() - 1);
-				l.sir = p.getSir();
-			} else if (p.getSir() == 0 && p.getSmer() == Smer.DOL) {
-				l.vis = p.getVis();
-				l.sir = 0;
-			} else if (p.getSir() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
-				l.vis = p.getVis();
-				l.sir = (p.getSir() - 1);
-			}
+		if (p.getVis() == 0 && p.getSmer() == Smer.DESNO) {
+			l.vis = 0;
+			l.sir = p.getSir();
+			sosednji.add(l);
+		} else if (p.getVis() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
+			l.vis = (p.getVis() - 1);
+			l.sir = p.getSir();
+			sosednji.add(l);
+		} else if (p.getSir() == 0 && p.getSmer() == Smer.DOL) {
+			l.vis = p.getVis();
+			l.sir = 0;
+			sosednji.add(l);
+		} else if (p.getSir() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
+			l.vis = p.getVis();
+			l.sir = (p.getSir() - 1);
 			sosednji.add(l);
 		} else {
 		// Primeri, ko dodamo dva boxa na seznam lokacij

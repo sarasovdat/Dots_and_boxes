@@ -113,7 +113,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		if (moder != null) { moder.prekini(); }
 		this.igra = new Igra();
 		rdec = new Clovek(this);
-		moder = new Clovek(this);
+		moder = new Racunalnik(this);
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: rdec.na_potezi(); break;
 		case NA_POTEZI_MODER: moder.na_potezi(); break;
@@ -194,7 +194,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 * 
 	 * @return kopijo trenutne igre
 	 */
-	//public Igra kopirajIgro() {
-		//return new Igra(igra);
-	//}
+	public Igra kopirajIgro() {
+		return new Igra(igra);
+	}
 }

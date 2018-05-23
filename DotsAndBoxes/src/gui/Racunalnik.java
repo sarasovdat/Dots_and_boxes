@@ -5,6 +5,7 @@ import logika.Smer;
 
 import javax.swing.SwingWorker;
 
+import inteligenca.NakljucnaInteligenca;
 import logika.Igra;
 
 
@@ -20,8 +21,8 @@ public class Racunalnik extends Strateg {
 	@Override
 	public void na_potezi() {
 		// Zacnemo razmisljati
-		// mislec = new NakljucnaInteligenca(okno); // TODO v inteligenci
-		// mislec.execute();	
+		mislec = new NakljucnaInteligenca(okno); // TODO v inteligenci
+		mislec.execute();	
 	}
 
 	@Override
