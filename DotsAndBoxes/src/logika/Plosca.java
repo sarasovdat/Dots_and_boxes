@@ -8,7 +8,7 @@ public class Plosca {
     public static final int SIRINA = 4;
 	public static final int VISINA = 4;
 	public static final int VELIKOST_POLJA = SIRINA * VISINA;
-	
+
 	private Box [][] polje;
 	private Crta [][] vodoravneCrte;
 	private Crta [][] navpicneCrte;
@@ -68,6 +68,20 @@ public class Plosca {
 
 	public Box [][] getPolje() {
 		return polje;
+	}
+	
+	public void setPolje(Box[][] polje) {
+		this.polje = polje;
+	}
+
+
+	public void setVodoravneCrte(Crta[][] vodoravneCrte) {
+		this.vodoravneCrte = vodoravneCrte;
+	}
+
+
+	public void setNavpicneCrte(Crta[][] navpicneCrte) {
+		this.navpicneCrte = navpicneCrte;
 	}
 
 }

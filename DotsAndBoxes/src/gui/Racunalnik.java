@@ -6,13 +6,12 @@ import logika.Smer;
 import javax.swing.SwingWorker;
 
 import inteligenca.NakljucnaInteligenca;
-import logika.Igra;
 
 
 public class Racunalnik extends Strateg {
 	private GlavnoOkno okno;
 	private SwingWorker<Poteza, Object> mislec;
-	private boolean prekini;
+//	private boolean prekini;
 	
 	public Racunalnik(GlavnoOkno okno) {
 		this.okno = okno;
@@ -32,9 +31,7 @@ public class Racunalnik extends Strateg {
 		}
 	}
 
-	// Dodale smer
 	@Override
 	public void klikni(Smer s, int vis, int sir) {
 	}
-
 }

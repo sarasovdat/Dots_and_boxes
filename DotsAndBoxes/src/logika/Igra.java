@@ -19,9 +19,10 @@ public class Igra {
 	 * @param igra
 	 */
 	public Igra(Igra igra) {
-		Box [][] polje = new Box [Plosca.VISINA][Plosca.SIRINA];
-		Crta [][] vodoravneCrte = new Crta [Plosca.VISINA + 1][Plosca.SIRINA];
-		Crta [][] navpicneCrte = new Crta [Plosca.VISINA][Plosca.SIRINA + 1];
+		plosca = new Plosca();
+		plosca.setPolje(new Box [Plosca.VISINA][Plosca.SIRINA]);
+		plosca.setVodoravneCrte(new Crta [Plosca.VISINA + 1][Plosca.SIRINA]);
+		plosca.setNavpicneCrte(new Crta [Plosca.VISINA][Plosca.SIRINA + 1]);
 		
 		for (int vis = 0; vis < Plosca.VISINA; vis++) {
 			for (int sir = 0; sir < Plosca.SIRINA; sir++) {

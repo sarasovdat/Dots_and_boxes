@@ -19,7 +19,7 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = okno.kopirajIgro(); 
-		Thread.sleep(100);
+		Thread.sleep(700);
 		Random r = new Random();
 		LinkedList<Poteza> poteze = igra.poteze();
 		Poteza p = poteze.get(r.nextInt(poteze.size()));

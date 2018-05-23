@@ -20,11 +20,10 @@ public abstract class Strateg {
 	 */
 	public abstract void prekini();
 	
-	// Dodale smer
 	/**
 	 * 
-	 * @param i
-	 * @param j
+	 * @param vis
+	 * @param sir
 	 * Glavno okno klice to metodo, ko uporabnik klikne na polje (visina, sirina).
 	 */
 	public abstract void klikni(Smer s, int vis, int sir);

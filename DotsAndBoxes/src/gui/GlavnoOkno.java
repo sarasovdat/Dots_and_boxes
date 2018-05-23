@@ -112,7 +112,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		if (rdec != null) { rdec.prekini(); }
 		if (moder != null) { moder.prekini(); }
 		this.igra = new Igra();
-		rdec = new Clovek(this);
+		rdec = new Racunalnik(this);
 		moder = new Racunalnik(this);
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: rdec.na_potezi(); break;

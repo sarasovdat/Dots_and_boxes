@@ -10,10 +10,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import logika.Igra;
 import logika.Plosca;
 import logika.Smer;
-import logika.Stanje;
 import logika.Box;
 import logika.Crta;
 
@@ -40,7 +38,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * Prazen prostor okoli X (X se narise v zapolnjen kvadratek)
 	 */
-	private final static double PROSTOR_OKOLI_X = 0.1;
+	private final static double PROSTOR_OKOLI_X = 0.3;
 	
 	public IgralnoPolje (GlavnoOkno okno) {
 			super();
@@ -127,7 +125,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int x = (int)((sir + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
 		int y = (int)((vis + velikostBoxa * (0.5 * DEBELINA_CRTE + PROSTOR_OKOLI_X)) + PRAZEN_PROSTOR_DO_ROBA + 5);
 		g.setColor(c);
-		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE)));
+		g.setStroke(new BasicStroke((float)(velikostBoxa * DEBELINA_CRTE / 1.5)));
 		g.drawLine(x, y, (x + sirina), (y + sirina));
 		g.drawLine((x + sirina), y, x, (y + sirina));
 	}
@@ -233,8 +231,8 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					int y2 = (int) (vis * velikostBoxa + velikostBoxa + PRAZEN_PROSTOR_DO_ROBA - RADIJ_PIKE * velikostBoxa);
 					int x0 = (int) (sir * velikostBoxa + PRAZEN_PROSTOR_DO_ROBA + (RADIJ_PIKE / 2) * velikostBoxa); 
 					// Enako kot zgoraj
-					int x1 = x0 - (int)(DEBELINA_CRTE * velikostBoxa * 1);
-					int x2 = x0 + (int)(DEBELINA_CRTE * velikostBoxa * 1);
+					int x1 = x0 - (int)(DEBELINA_CRTE * velikostBoxa * 1) - (int)(RADIJ_PIKE * velikostBoxa);
+					int x2 = x0 + (int)(DEBELINA_CRTE * velikostBoxa * 1) + (int)(RADIJ_PIKE + velikostBoxa);
 					
 					if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
 						Smer s = Smer.DOL;
