@@ -137,7 +137,7 @@ public class Igra {
 	 * @param l
 	 * @return true, ce so vse crte, ki omejujejo kvadrat na lokaciji l ze zapolnjene
 	 */
-	public boolean jeObkrozen(Lokacija l) {
+	public boolean jePoln(Lokacija l) {
 		if (plosca.getVodoravneCrte()[l.vis][l.sir] != Crta.PRAZNO
 				&& plosca.getVodoravneCrte()[l.vis + 1][l.sir] != Crta.PRAZNO
 				&& plosca.getNavpicneCrte()[l.vis][l.sir] != Crta.PRAZNO
@@ -148,11 +148,16 @@ public class Igra {
 		}
 	}
 	
+	/**
+	 * V matriki z boxi zapolni ustrezno polje 
+	 * @param p
+	 * @return true, ce je poteza zaprla box
+	 */
 	private boolean zapolniKvadrate(Poteza p) {
 		boolean smo_zapolnili = false;
 		Box b = naPotezi.box();
 		for (Lokacija l : sosednjiBoxi(p)) {
-			if (jeObkrozen(l) && plosca.getPolje()[l.vis][l.sir] == Box.PRAZNO) {
+			if (jePoln(l) && plosca.getPolje()[l.vis][l.sir] == Box.PRAZNO) {
 				smo_zapolnili = true;
 		        plosca.getPolje()[l.vis][l.sir] = b;
 		    }
