@@ -33,7 +33,7 @@ public class Racunalnik extends Strateg {
 
 	// Dodale smer
 	@Override
-	public void klikni(Smer s, int i, int j) {
+	public void klikni(Smer s, int vis, int sir) {
 	}
 
 }

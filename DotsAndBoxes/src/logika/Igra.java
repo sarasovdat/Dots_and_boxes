@@ -21,13 +21,13 @@ public class Igra {
 	public Stanje stanje() {
 		int steviloBoxovRdec = 0;
 		int steviloBoxovModer = 0;
-		for (int i = 0; i < Plosca.VISINA; i++) {
-			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if (plosca.getPolje()[i][j] == Box.RDEC) {
-					steviloBoxovRdec++;
+		for (int vis = 0; vis < Plosca.VISINA; vis ++) {
+			for (int sir = 0; sir < Plosca.SIRINA; sir ++) {
+				if (plosca.getPolje()[vis][sir] == Box.RDEC) {
+					steviloBoxovRdec ++;
 				}
-				else if (plosca.getPolje()[i][j] == Box.MODER) {
-					steviloBoxovModer++;
+				else if (plosca.getPolje()[vis][sir] == Box.MODER) {
+					steviloBoxovModer ++;
 				}
 			}
 		}
@@ -69,18 +69,18 @@ public class Igra {
 	public LinkedList<Poteza> poteze(){
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
 		//Preverimo vodoravne crte
-		for (int i = 0; i < (Plosca.VISINA + 1); i++) {
-			for (int j = 0; j < Plosca.SIRINA; j++) {
-				if(plosca.getVodoravneCrte()[i][j] == Crta.PRAZNO) {
-					moznePoteze.add(new Poteza(Smer.DESNO, i, j));
+		for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
+			for (int sir = 0; sir < Plosca.SIRINA; sir ++) {
+				if(plosca.getVodoravneCrte()[vis][sir] == Crta.PRAZNO) {
+					moznePoteze.add(new Poteza(Smer.DESNO, vis, sir));
 				}
 			}
 		}
 		// Preverimo navpicne crte
-		for (int i = 0; i < Plosca.VISINA; i++) {
-			for (int j = 0; j < (Plosca.SIRINA + 1); j++) {
-				if(plosca.getNavpicneCrte()[i][j] == Crta.PRAZNO) {
-					moznePoteze.add(new Poteza(Smer.DOL, i, j));
+		for (int vis = 0; vis < Plosca.VISINA; vis ++) {
+			for (int sir = 0; sir < (Plosca.SIRINA + 1); sir ++) {
+				if(plosca.getNavpicneCrte()[vis][sir] == Crta.PRAZNO) {
+					moznePoteze.add(new Poteza(Smer.DOL, vis, sir));
 				}
 			}
 		}
@@ -95,34 +95,34 @@ public class Igra {
 		LinkedList<Lokacija> sosednji = new LinkedList<Lokacija>();			
 		Lokacija l = new Lokacija();
 		Lokacija k = new Lokacija();
-		if (p.getI() == 0 || p.getJ() == 0 || p.getI() == Plosca.VISINA || p.getJ() == Plosca.SIRINA) {	
+		if (p.getVis() == 0 || p.getSir() == 0 || p.getVis() == Plosca.VISINA || p.getSir() == Plosca.SIRINA) {	
 		// Primeri, ko dodamo le en box na seznam lokacij
-			if (p.getI() == 0 && p.getSmer() == Smer.DESNO) {
-				l.i = 0;
-				l.j = p.getJ();
-			} else if (p.getI() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
-				l.i = (p.getI() - 1);
-				l.j = p.getJ();
-			} else if (p.getJ() == 0 && p.getSmer() == Smer.DOL) {
-				l.i = p.getI();
-				l.j = 0;
-			} else if (p.getJ() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
-				l.i = p.getI();
-				l.j = (p.getJ() - 1);
+			if (p.getVis() == 0 && p.getSmer() == Smer.DESNO) {
+				l.vis = 0;
+				l.sir = p.getSir();
+			} else if (p.getVis() == Plosca.VISINA && p.getSmer() == Smer.DESNO) {
+				l.vis = (p.getVis() - 1);
+				l.sir = p.getSir();
+			} else if (p.getSir() == 0 && p.getSmer() == Smer.DOL) {
+				l.vis = p.getVis();
+				l.sir = 0;
+			} else if (p.getSir() == Plosca.SIRINA && p.getSmer() == Smer.DOL) {
+				l.vis = p.getVis();
+				l.sir = (p.getSir() - 1);
 			}
 			sosednji.add(l);
 		} else {
 		// Primeri, ko dodamo dva boxa na seznam lokacij
 			if (p.getSmer() == Smer.DESNO) {
-				l.i = (p.getI() -1);
-				l.j = p.getJ();
-				k.i = p.getI();
-				k.j = p.getJ();
+				l.vis = (p.getVis() - 1);
+				l.sir = p.getSir();
+				k.vis = p.getVis();
+				k.sir = p.getSir();
 			} else if (p.getSmer() == Smer.DOL) {
-				l.i = p.getI();
-				l.j = (p.getJ() - 1);
-				k.i = p.getI();
-				k.j = p.getJ();			
+				l.vis = p.getVis();
+				l.sir = (p.getSir() - 1);
+				k.vis = p.getVis();
+				k.sir = p.getSir();			
 			}
 			sosednji.add(l);
 			sosednji.add(k);
@@ -137,10 +137,10 @@ public class Igra {
 	 * @return true, ce so vse crte, ki omejujejo kvadrat na lokaciji l ze zapolnjene
 	 */
 	public boolean jeObkrozen(Lokacija l) {
-		if (plosca.getVodoravneCrte()[l.i][l.j] != Crta.PRAZNO
-				&& plosca.getVodoravneCrte()[l.i + 1][l.j] != Crta.PRAZNO
-				&& plosca.getNavpicneCrte()[l.i][l.j] != Crta.PRAZNO
-				&& plosca.getNavpicneCrte()[l.i][l.j +1] != Crta.PRAZNO) {
+		if (plosca.getVodoravneCrte()[l.vis][l.sir] != Crta.PRAZNO
+				&& plosca.getVodoravneCrte()[l.vis + 1][l.sir] != Crta.PRAZNO
+				&& plosca.getNavpicneCrte()[l.vis][l.sir] != Crta.PRAZNO
+				&& plosca.getNavpicneCrte()[l.vis][l.sir +1] != Crta.PRAZNO) {
 			return true;
 		} else {
 			return false;
@@ -151,9 +151,9 @@ public class Igra {
 		boolean smo_zapolnili = false;
 		Box b = naPotezi.box();
 		for (Lokacija l : sosednjiBoxi(p)) {
-			if (jeObkrozen(l) && plosca.getPolje()[l.i][l.j] == Box.PRAZNO) {
+			if (jeObkrozen(l) && plosca.getPolje()[l.vis][l.sir] == Box.PRAZNO) {
 				smo_zapolnili = true;
-		        plosca.getPolje()[l.i][l.j] = b;
+		        plosca.getPolje()[l.vis][l.sir] = b;
 		    }
 		}
 		return smo_zapolnili;
@@ -168,13 +168,13 @@ public class Igra {
 	 */
 	public boolean odigraj(Poteza p) {
 		Crta c = naPotezi.crta();
-		int i = p.getI();
-		int j = p.getJ();
+		int vis = p.getVis();
+		int sir = p.getSir();
 		if (p.getSmer() == Smer.DOL) {
-			if (plosca.getNavpicneCrte()[i][j] != Crta.PRAZNO) {
+			if (plosca.getNavpicneCrte()[vis][sir] != Crta.PRAZNO) {
 				return false;
 			} else {
-				plosca.getNavpicneCrte()[i][j] = c;
+				plosca.getNavpicneCrte()[vis][sir] = c;
 				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
 				if (!smo_zapolnili_kvadrat) {
 					naPotezi = naPotezi.nasprotnik();
@@ -182,10 +182,10 @@ public class Igra {
 				return true;
 			}
 		} else if (p.getSmer() == Smer.DESNO){
-			if (plosca.getVodoravneCrte()[i][j] != Crta.PRAZNO) {
+			if (plosca.getVodoravneCrte()[vis][sir] != Crta.PRAZNO) {
 				return false;
 			} else {
-				plosca.getVodoravneCrte()[i][j] = c;
+				plosca.getVodoravneCrte()[vis][sir] = c;
 				boolean smo_zapolnili_kvadrat = zapolniKvadrate(p);
 				if (!smo_zapolnili_kvadrat) {
 					naPotezi = naPotezi.nasprotnik();

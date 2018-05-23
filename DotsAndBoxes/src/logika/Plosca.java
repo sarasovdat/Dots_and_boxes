@@ -19,43 +19,43 @@ public class Plosca {
 		navpicneCrte = new Crta [VISINA][SIRINA + 1];
 		
 		// Polja nastavimo na prazno
-		for (int i = 0; i < VISINA; i++) {
-			for (int j = 0; j < SIRINA; j++) {
-				getPolje()[i][j] = Box.PRAZNO;
+		for (int vis = 0; vis < VISINA; vis++) {
+			for (int sir = 0; sir < SIRINA; sir++) {
+				getPolje()[vis][sir] = Box.PRAZNO;
 			}
 		}
 		
 		// Na zacetku na plosci ni crt (vodoravnih in navpicnih)
-		for (int i = 0; i < (VISINA + 1); i++) {
-			for (int j = 0; j < SIRINA; j++) {
-				getVodoravneCrte()[i][j] = Crta.PRAZNO;
+		for (int vis = 0; vis < (VISINA + 1); vis++) {
+			for (int sir = 0; sir < SIRINA; sir++) {
+				getVodoravneCrte()[vis][sir] = Crta.PRAZNO;
 			}
 		}
 		
-		for (int i = 0; i < VISINA; i++) {
-			for (int j = 0; j < (SIRINA + 1); j++) {
-				getNavpicneCrte()[i][j] = Crta.PRAZNO;
+		for (int vis = 0; vis < VISINA; vis++) {
+			for (int sir = 0; sir < (SIRINA + 1); sir++) {
+				getNavpicneCrte()[vis][sir] = Crta.PRAZNO;
 			}
 		}
 	}
 	
 	
-//Metoda, ki preveri, ce so crte ze narisane
+// Metoda, ki preveri, ce so crte ze narisane
 	
-	public Crta crtaLevo (int i, int j) {
-		return getNavpicneCrte()[i][j];
+	public Crta crtaLevo (int vis, int sir) {
+		return getNavpicneCrte()[vis][sir];
 	}
 	
-	public Crta crtaDesno (int i, int j) {
-		return getNavpicneCrte()[i][j+1];
+	public Crta crtaDesno (int vis, int sir) {
+		return getNavpicneCrte()[vis][sir+1];
 	}
 	
-	public Crta crtaZgoraj (int i, int j) {
-		return getVodoravneCrte()[i][j];
+	public Crta crtaZgoraj (int vis, int sir) {
+		return getVodoravneCrte()[vis][sir];
 	}
 	
-	public Crta crtaSpodaj (int i, int j) {
-		return getVodoravneCrte()[i+1][j];
+	public Crta crtaSpodaj (int vis, int sir) {
+		return getVodoravneCrte()[vis+1][sir];
 	}
 
 

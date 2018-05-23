@@ -2,6 +2,6 @@ package logika;
 
 
 public class Lokacija {
-	protected int i;
-	protected int j;
+	protected int vis;
+	protected int sir;
 }

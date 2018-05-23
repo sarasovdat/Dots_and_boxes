@@ -175,11 +175,11 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	 */
 	
 	// POPRAVI NEKAJ S KLIKOM NA CRTO
-	public void klikniPolje (Smer s, int i, int j) {
+	public void klikniPolje (Smer s, int vis, int sir) {
 		if (igra != null) {
 			switch (igra.stanje()) {
-			case NA_POTEZI_RDEC: rdec.klikni(s, i, j); break;
-			case NA_POTEZI_MODER: moder.klikni(s, i, j); break;
+			case NA_POTEZI_RDEC: rdec.klikni(s, vis, sir); break;
+			case NA_POTEZI_MODER: moder.klikni(s, vis, sir); break;
 			default: break;
 			}
 		}
