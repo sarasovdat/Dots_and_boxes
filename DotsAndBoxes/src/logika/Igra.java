@@ -45,9 +45,9 @@ public class Igra {
 	}
 	
 	/**
-	 * 
+	 * Ko je igre konec, nastavi stevilo rdecih in modrih kvadratkov
 	 * @return Trenutno stanje igre. 
-	 * Ko je igre konec, nastavi stevilo rdecih in modrih kvadratkov.
+	 * 
 	 */
 	public Stanje stanje() {
 		int steviloBoxovRdec = 0;
@@ -97,6 +97,7 @@ public class Igra {
 	/**
 	 * 
 	 * @return Seznam vseh moznih potez
+	 * 
 	 */
 	public LinkedList<Poteza> poteze(){
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
@@ -122,6 +123,7 @@ public class Igra {
 	 * 
 	 * @param p
 	 * @return Seznam lokacij vseh sosednjih kvadratov poteze p
+	 * 
 	 */
 	public LinkedList<Lokacija> sosednjiBoxi(Poteza p){
 		LinkedList<Lokacija> sosednji = new LinkedList<Lokacija>();			
@@ -168,6 +170,7 @@ public class Igra {
 	 * 
 	 * @param l
 	 * @return true, ce so vse crte, ki omejujejo kvadrat na lokaciji l ze zapolnjene
+	 * 
 	 */
 	public boolean jePoln(Lokacija l) {
 		if (plosca.getVodoravneCrte()[l.vis][l.sir] != Crta.PRAZNO
@@ -184,6 +187,7 @@ public class Igra {
 	 * V matriki z boxi zapolni ustrezno polje 
 	 * @param p
 	 * @return true, ce je poteza zaprla box
+	 * 
 	 */
 	private boolean zapolniKvadrate(Poteza p) {
 		boolean smo_zapolnili = false;
@@ -231,7 +235,6 @@ public class Igra {
 				return true;
 			}
 		}
-		// A je ok da tu vrne false? 
 		return false;
 	}
 	

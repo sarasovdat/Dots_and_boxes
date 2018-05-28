@@ -5,8 +5,8 @@ public class Plosca {
 	/**
 	 * Velikost igralne plosce je N x M
 	 */
-    public static final int SIRINA = 4;
-	public static final int VISINA = 4;
+    public static final int SIRINA = 5;
+	public static final int VISINA = 5;
 	public static final int VELIKOST_POLJA = SIRINA * VISINA;
 
 	private Box [][] polje;
@@ -39,8 +39,6 @@ public class Plosca {
 		}
 	}
 	
-	
-// Metoda, ki preveri, ce so crte ze narisane
 	
 	public Crta crtaLevo (int vis, int sir) {
 		return getNavpicneCrte()[vis][sir];

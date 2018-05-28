@@ -20,7 +20,8 @@ import logika.Smer;
 
 
 /**
- * Glavno okno - hrani trenutno stanje igre in nadzoruje njen potek
+ * Glavno okno : hrani trenutno stanje igre in nadzoruje njen potek
+ * 
  * @author Sara
  *
  */
@@ -65,10 +66,10 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 		
-		// menu 
+		// MENU
 		JMenuBar menu_bar = new JMenuBar();
 		this.setJMenuBar(menu_bar);
-		JMenu igra_menu = new JMenu("Igra");
+		JMenu igra_menu = new JMenu("Nova igra");
 		menu_bar.add(igra_menu);
 
 		igraClovekRacunalnik = new JMenuItem("Èlovek – raèunalnik");
@@ -87,7 +88,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 		
-		// igralno polje
+		// Igralno polje
 		polje = new IgralnoPolje(this);
 		GridBagConstraints izgledPolja = new GridBagConstraints();
 		izgledPolja.gridx = 0;
@@ -97,7 +98,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		izgledPolja.weighty = 1.0;
 		getContentPane().add(polje, izgledPolja);
 		
-		// statusna vrstica za sporocila - dokoncaj
+		// Statusna vrstica za sporocila
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 				status.getFont().getStyle(), 20));
@@ -107,7 +108,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 		
-		// zacnemo novo igro cloveka proti racunalniku
+		// Zacnemo novo igro cloveka proti racunalniku
 		novaIgra(new Clovek(this, Igralec.RDEC),
 				new Racunalnik(this, Igralec.MODER));
 		
@@ -135,9 +136,9 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * 
+	 * Odigra potezo
 	 * @param p
-	 * odigra potezo
+	 * 
 	 */
 	public void odigraj(Poteza p) {
 		igra.odigraj(p);
@@ -173,16 +174,17 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	/**
 	 * 
 	 * @return trenutna igralna plosca (null, ce se igra ne izvaja)
+	 * 
 	 */
 	public Plosca getPlosca() {
 		return (igra == null ? null : igra.getPlosca());	
 	}
 	
 	/**
-	 * 
+	 * Metoda, ki ob kliku na (vis, sir) pravilno ukrepa
 	 * @param vis
 	 * @param sir
-	 * Metoda, ki ob kliku na (vis, sir) pravilno ukrepa 
+	 * 
 	 */
 	public void klikniPolje (Smer s, int vis, int sir) {
 		if (igra != null) {
@@ -217,7 +219,8 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 
 	/**
 	 * 
-	 * @return kopijo trenutne igre
+	 * @return kopija trenutne igre
+	 * 
 	 */
 	public Igra kopirajIgro() {
 		return new Igra(igra);

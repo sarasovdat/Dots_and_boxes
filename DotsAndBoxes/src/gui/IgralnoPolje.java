@@ -17,6 +17,7 @@ import logika.Crta;
 
 /**
  * Obmocje, kjer je narisano igralno polje
+ * 
  * @author Sara
  *
  */
@@ -51,7 +52,6 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 			this.addMouseListener(this);
 	}
 	
-	
 
 	@Override
 	public Dimension getPreferredSize() {
@@ -62,6 +62,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * 
 	 * @return relativna velikost boxa
+	 * 
 	 */
 	private double velikostBoxa() {
 		return Math.min(getWidth() - 2 * PRAZEN_PROSTOR_DO_ROBA, getHeight() - 2 * PRAZEN_PROSTOR_DO_ROBA) 
@@ -69,11 +70,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * 
+	 * Narise piko
 	 * @param g
 	 * @param sir
 	 * @param vis
-	 * Narise piko
+	 * 
 	 */
 	private void narisiPiko (Graphics2D g, int sir, int vis) {
 		double velikostBoxa = velikostBoxa();
@@ -88,6 +89,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 * @param sir
 	 * @param vis
 	 * @param c
+	 * 
 	 */
 	private void narisiZacetnoVodoravno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
@@ -99,13 +101,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.drawLine(x1, y, x2, y);
 	}
 	
-	
 	/**
 	 * Narise svetlo sive navpicne crte, ki se pojavijo takoj na zacetku (mreza)
 	 * @param g
 	 * @param sir
 	 * @param vis
 	 * @param c
+	 * 
 	 */
 	private void narisiZacetnoNavpicno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
@@ -117,12 +119,14 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.drawLine(x, y1, x, y2);
 	}
 	
+	
 	/**
-	 * Rise vosoravne crte za poteze
+	 * Rise vodoravne crte za poteze
 	 * @param g
 	 * @param sir
 	 * @param vis
 	 * @param c
+	 * 
 	 */
 	private void narisiVodoravno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
@@ -134,13 +138,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g.drawLine(x1, y, x2, y);
 	}
 	
-	
 	/**
 	 * Rise navpicne crte za poteze
 	 * @param g
 	 * @param sir
 	 * @param vis
 	 * @param c
+	 * 
 	 */
 	private void narisiNavpicno (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
@@ -153,11 +157,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * 
+	 * V box, ki se zapre, narise X ustrezne barve (odvisno kdo ga zapre)
 	 * @param g
 	 * @param sir
 	 * @param vis
-	 * V box, ki se zapre, narise X ustrezne barve (odvisno kdo ga zapre)
+	 * 
 	 */
 	private void narisiX (Graphics2D g, int sir, int vis, Color c) {
 		double velikostBoxa = velikostBoxa();
@@ -243,7 +247,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		}	
 	}
 	
-	// Na koncu naj poklice klikni.Polje(smer, vis, sir)
+	
 	// (x, y) -> (a, b) -> klikni.Polje(smer, b, a) 
 	@Override
 	public void mouseClicked(MouseEvent e) {

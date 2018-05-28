@@ -6,6 +6,7 @@ import logika.Smer;
 
 /**
  * Objekt, ki igra clovekove poteze
+ * 
  * @author Sara
  *
  */
@@ -26,12 +27,8 @@ public class Clovek extends Strateg {
 	public void prekini() {	
 	}
 
-	// dodale smer
 	@Override
 	public void klikni(Smer s, int vis, int sir) {
 		okno.odigraj(new Poteza(s, vis, sir));	
 	}
-	
-	
-
 }

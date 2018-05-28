@@ -1,13 +1,14 @@
 package inteligenca;
 
+
 import logika.Box;
 import logika.Igra;
 import logika.Igralec;
 import logika.Plosca;
-import logika.Stanje;
 
 /**
  * Ocena trenutne pozicije
+ * 
  * @author Sara
  *
  */
@@ -24,9 +25,10 @@ public class Ocena {
 	
 	/**
 	 * 
-	 * @param jaz igralec, ki zeli oceno
-	 * @param igra trenutno stanje igre
+	 * @param jaz : igralec, ki zeli oceno
+	 * @param igra : trenutno stanje igre
 	 * @return ocena vrednosti pozicije
+	 * 
 	 */
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
 		Igralec naPotezi = null;
@@ -55,10 +57,13 @@ public class Ocena {
 				}
 			}
 		}
-		if (naPotezi == Igralec.RDEC) { steviloBoxovModer /= 2; }
-		if (naPotezi == Igralec.MODER) { steviloBoxovRdec /= 2; }
-		return (jaz == Igralec.RDEC ? steviloBoxovModer - steviloBoxovRdec : steviloBoxovModer - steviloBoxovRdec);
-			
+		if (naPotezi == Igralec.RDEC) { 
+			steviloBoxovModer /= 2; 
+		}
+		if (naPotezi == Igralec.MODER) { 
+			steviloBoxovRdec /= 2; 
+		}
+		return (jaz == Igralec.RDEC ? steviloBoxovModer - steviloBoxovRdec : steviloBoxovModer - steviloBoxovRdec);	
 		}
 		return 0;
 	}

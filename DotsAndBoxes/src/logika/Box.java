@@ -1,7 +1,7 @@
 package logika;
 
 /**
- * 'Cigav' je box
+ * Cigav je box
  */
 public enum Box {
 	PRAZNO, RDEC, MODER;

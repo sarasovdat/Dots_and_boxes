@@ -18,7 +18,7 @@ public class Racunalnik extends Strateg {
 	private GlavnoOkno okno;
 	private Igralec racunalnik;
 	private SwingWorker<Poteza, Object> mislec;
-//	private boolean prekini;
+	// private boolean prekini;
 	
 	public Racunalnik(GlavnoOkno okno, Igralec racunalnik) {
 		this.okno = okno;
