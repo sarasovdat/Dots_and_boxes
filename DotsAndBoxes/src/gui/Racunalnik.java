@@ -6,6 +6,7 @@ import logika.Smer;
 
 import javax.swing.SwingWorker;
 
+import inteligenca.MiniMax;
 import inteligenca.NakljucnaInteligenca;
 
 /**
@@ -27,7 +28,7 @@ public class Racunalnik extends Strateg {
 	@Override
 	public void na_potezi() {
 		// Zacnemo razmisljati
-		mislec = new NakljucnaInteligenca(okno); 
+		mislec = new MiniMax(okno, 4, racunalnik); 
 		mislec.execute();	
 	}
 
