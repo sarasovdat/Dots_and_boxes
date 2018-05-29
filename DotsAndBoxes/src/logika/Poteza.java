@@ -2,13 +2,13 @@ package logika;
 
 public class Poteza {
 	protected Smer smer;
-	protected int vis;
-	protected int sir;
+	protected int visina;
+	protected int sirina;
 	
 	public Poteza(Smer smer, int vis, int sir) {
 		this.smer = smer;
-		this.vis = vis;
-		this.sir = sir;
+		this.visina = vis;
+		this.sirina = sir;
 	}
 
 	public Smer getSmer() {
@@ -17,12 +17,19 @@ public class Poteza {
 
 
 	public int getVis() {
-		return vis;
+		return visina;
 	}
 	
 
 	
 	public int getSir() {
-		return sir;
+		return sirina;
 	}
+
+	@Override
+	public String toString() {
+		return "Poteza [smer=" + smer + ", vis=" + visina + ", sir=" + sirina + "]";
+	}
+	
+	
 }

@@ -1,5 +1,9 @@
 package inteligenca;
 
+import java.util.List;
+import java.util.Random;
+import java.util.LinkedList;
+
 import javax.swing.SwingWorker;
 
 import gui.GlavnoOkno;
@@ -46,9 +50,10 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = okno.kopirajIgro();
-		Thread.sleep(700);
-		OcenjenaPoteza p = minimax(0, igra);
+		Thread.sleep(300);
+		OcenjenaPoteza p = minimax(0, igra, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		assert (p.poteza != null);
+		System.out.println("Minimax: " + p);
 		return p.poteza;
 	}
 	
@@ -56,7 +61,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	public void done() {
 		try {
 			Poteza p = this.get();
-			if (p != null) { 
+			if (p != null) {
 				okno.odigraj(p);
 			}
 		} catch (Exception e) {
@@ -70,52 +75,51 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	 * @return najboljsa poteza (ali null, ce je ni) in ocena najboljse poteze
 	 * 
 	 */
-	private OcenjenaPoteza minimax(int k, Igra igra) {
+	private OcenjenaPoteza minimax(int k, Igra igra, double alpha, double beta) {
 		Igralec naPotezi = null;
-		// Ugotovimo, ali je konec, ali je kdo na potezi
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: naPotezi = Igralec.RDEC; break;
 		case NA_POTEZI_MODER: naPotezi = Igralec.MODER; break;
 		// Igre je konec, ne moremo vrniti poteze, vrnemo vrednost pozicije
 		case ZMAGA_RDEC:
-			return new OcenjenaPoteza(null, (jaz == Igralec.RDEC ? Ocena.ZMAGA : Ocena.PORAZ));
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		case ZMAGA_MODER:
-			return new OcenjenaPoteza(null, (jaz == Igralec.MODER ? Ocena.ZMAGA : Ocena.PORAZ));
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		case NEODLOCENO:
-			return new OcenjenaPoteza(null, Ocena.NEODLOCENO);
-		}
-		assert (naPotezi != null);
-		// Nekdo je na potezi, ugotovimo, kaj se splaca igrati
-		if (k >= globina) {
-			// dosegli smo najvecjo dovoljeno globino, zato
-			// ne vrnemo poteze, ampak samo oceno pozicije
 			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
-		// Hranimo najboljso do sedaj videno potezo in njeno oceno.
-		// Tu bi bilo bolje imeti seznam do sedaj videnih najboljsih potez, ker je lahko
-		// v neki poziciji vec enakovrednih najboljsih potez. Te bi lahko zbrali
-		// v seznam, potem pa vrnili nakljucno izbrano izmed najboljsih potez, kar bi
-		// popestrilo igro racunalnika.
-		Poteza najboljsa = null;
+		assert (naPotezi != null);
+		if (k >= globina) {
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
+		}
+		
 		int ocenaNajboljse = 0;
+		List<Poteza> najboljse = new LinkedList<Poteza>();
 		for (Poteza p : igra.poteze()) {
-			// V kopiji igre odigramo potezo p
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigraj(p);
-			// Izracunamo vrednost pozicije po odigrani potezi p
-			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
+			
+			//POPRAVIIIIII!!!!!!!!
+			int ocenaP = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
+					             kopijaIgre, alpha, beta).vrednost;
 			// Ce je p boljsa poteza, si jo zabelezimo
-			if (najboljsa == null // se nimamo kandidata za najboljso potezo
-				|| (naPotezi == jaz && ocenaP > ocenaNajboljse) // maksimiziramo
-				|| (naPotezi != jaz && ocenaP < ocenaNajboljse) // minimiziramo
-				) {
-				najboljsa = p;
+			if (najboljse.isEmpty() // se nimamo kandidata za najboljso potezo
+					|| ocenaP == ocenaNajboljse) { 
+				najboljse.add(p);
+				ocenaNajboljse = ocenaP;
+			} else if ((naPotezi == jaz && ocenaP > ocenaNajboljse) // maksimiziramo
+					|| (naPotezi != jaz && ocenaP < ocenaNajboljse)) // minimiziramo
+			{
+				najboljse = new LinkedList<Poteza>();
+				najboljse.add(p);
 				ocenaNajboljse = ocenaP;
 			}
 		}
 		// Vrnemo najboljso najdeno potezo in njeno oceno
-		assert (najboljsa != null);
-		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
+		assert (!najboljse.isEmpty());
+		Random r = new Random();
+		Poteza p = najboljse.get(r.nextInt(najboljse.size()));
+		return new OcenjenaPoteza(p, ocenaNajboljse);
 	}
 }
 

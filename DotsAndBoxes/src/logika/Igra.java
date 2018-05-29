@@ -44,6 +44,11 @@ public class Igra {
 		} this.naPotezi = igra.naPotezi;
 	}
 	
+	
+	public Igralec getNaPotezi() {
+		return naPotezi;
+	}
+
 	/**
 	 * Ko je igre konec, nastavi stevilo rdecih in modrih kvadratkov
 	 * @return Trenutno stanje igre. 
@@ -105,7 +110,12 @@ public class Igra {
 		for (int vis = 0; vis < (Plosca.VISINA + 1); vis ++) {
 			for (int sir = 0; sir < Plosca.SIRINA; sir ++) {
 				if(plosca.getVodoravneCrte()[vis][sir] == Crta.PRAZNO) {
-					moznePoteze.add(new Poteza(Smer.DESNO, vis, sir));
+					Poteza p = new Poteza(Smer.DESNO, vis, sir);
+					if (zapolniKvadrate(p)){
+						moznePoteze.addFirst(p);
+					} else {
+						moznePoteze.addLast(p);
+					}
 				}
 			}
 		}
@@ -113,7 +123,12 @@ public class Igra {
 		for (int vis = 0; vis < Plosca.VISINA; vis ++) {
 			for (int sir = 0; sir < (Plosca.SIRINA + 1); sir ++) {
 				if(plosca.getNavpicneCrte()[vis][sir] == Crta.PRAZNO) {
-					moznePoteze.add(new Poteza(Smer.DOL, vis, sir));
+					Poteza p = new Poteza(Smer.DOL, vis, sir);
+					if (zapolniKvadrate(p)){
+						moznePoteze.addFirst(p);
+					} else {
+						moznePoteze.addLast(p);
+					}
 				}
 			}
 		}
