@@ -34,6 +34,8 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	 */
 	private Igralec jaz;
 	
+	private Random r;
+	
 	/**
 	 * 
 	 * @param okno : glavno okno, v katerem vlecemo poteze
@@ -44,7 +46,8 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	public MiniMax (GlavnoOkno okno, int globina, Igralec jaz) {
 		this.okno = okno;
 		this.globina = globina;
-		this.jaz = jaz;	
+		this.jaz = jaz;
+		this.r = new Random();
 	}
 
 	@Override
@@ -93,31 +96,61 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
 		
+		
 		int ocenaNajboljse = 0;
 		List<Poteza> najboljse = new LinkedList<Poteza>();
-		for (Poteza p : igra.poteze()) {
-			Igra kopijaIgre = new Igra(igra);
-			kopijaIgre.odigraj(p);
-			
-			//POPRAVIIIIII!!!!!!!!
-			int ocenaP = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
-					             kopijaIgre, alpha, beta).vrednost;
-			// Ce je p boljsa poteza, si jo zabelezimo
-			if (najboljse.isEmpty() // se nimamo kandidata za najboljso potezo
-					|| ocenaP == ocenaNajboljse) { 
-				najboljse.add(p);
-				ocenaNajboljse = ocenaP;
-			} else if ((naPotezi == jaz && ocenaP > ocenaNajboljse) // maksimiziramo
-					|| (naPotezi != jaz && ocenaP < ocenaNajboljse)) // minimiziramo
-			{
-				najboljse = new LinkedList<Poteza>();
-				najboljse.add(p);
-				ocenaNajboljse = ocenaP;
+		
+		if (naPotezi == jaz) {
+			double v = Double.NEGATIVE_INFINITY;
+			for (Poteza p : igra.poteze()) {
+				Igra kopijaIgre = new Igra(igra);
+				kopijaIgre.odigraj(p);
+				OcenjenaPoteza oPoteza = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
+			             kopijaIgre, alpha, beta);
+				int ocenaP = oPoteza.vrednost;
+				//System.out.println(ocenaP);
+				if ((double) ocenaP > v) {
+					v = ocenaP;
+					najboljse.clear();
+					najboljse.add(p);
+					alpha = Math.max(alpha, v);
+					ocenaNajboljse = ocenaP;
+					if (alpha >= beta) break;
+					//System.out.println(v);
+					//System.out.println(ocenaP);
+				} else if (ocenaP == v) {
+					najboljse.add(p);
+				} 
+			}
+
+		} else {
+			double v = Double.POSITIVE_INFINITY;
+			for (Poteza p : igra.poteze()) {
+				Igra kopijaIgre = new Igra(igra);
+				kopijaIgre.odigraj(p);
+				OcenjenaPoteza oPoteza = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
+			             kopijaIgre, alpha, beta);
+				int ocenaP = oPoteza.vrednost;
+				if ((double) ocenaP < v) {
+					v = ocenaP;
+					najboljse.clear();
+					najboljse.add(p);
+					beta = Math.min(beta, v);
+					ocenaNajboljse = ocenaP;
+					if (alpha >= beta) break;
+				} else if (ocenaP == v) {
+					najboljse.add(p);
+				}
+				
 			}
 		}
+		
 		// Vrnemo najboljso najdeno potezo in njeno oceno
+		for (int i = 0; i < najboljse.size(); i++) {
+			System.out.println(najboljse.get(i) + " " + ocenaNajboljse);
+		}
+		System.out.println("");
 		assert (!najboljse.isEmpty());
-		Random r = new Random();
 		Poteza p = najboljse.get(r.nextInt(najboljse.size()));
 		return new OcenjenaPoteza(p, ocenaNajboljse);
 	}
