@@ -99,7 +99,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigraj(p);
 			
-			//POPRAVIIIIII!!!!!!!!
+			// TODO POPRAVIIIIII!!!!!!!!
 			double ocenaP = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
 					             kopijaIgre, alpha, beta).vrednost;
 			// Ce je p boljsa poteza, si jo zabelezimo
@@ -113,6 +113,15 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 				najboljse = new LinkedList<Poteza>();
 				najboljse.add(p);
 				ocenaNajboljse = ocenaP;
+			}
+			// Popravimo alpha ali beta
+			if (naPotezi == jaz) {
+				alpha = Math.max(alpha, ocenaNajboljse);
+			} else {
+				beta = Math.min(beta, ocenaNajboljse);
+			}
+			if (beta <= alpha) {
+				return new OcenjenaPoteza(null, ocenaNajboljse);
 			}
 		}
 		// Vrnemo najboljso najdeno potezo in njeno oceno
