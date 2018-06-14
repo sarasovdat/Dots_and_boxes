@@ -93,14 +93,14 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
 		
-		int ocenaNajboljse = 0;
+		double ocenaNajboljse = 0.0;
 		List<Poteza> najboljse = new LinkedList<Poteza>();
 		for (Poteza p : igra.poteze()) {
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigraj(p);
 			
 			//POPRAVIIIIII!!!!!!!!
-			int ocenaP = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
+			double ocenaP = minimax((igra.getNaPotezi() == kopijaIgre.getNaPotezi() ? k : k + 1), 
 					             kopijaIgre, alpha, beta).vrednost;
 			// Ce je p boljsa poteza, si jo zabelezimo
 			if (najboljse.isEmpty() // se nimamo kandidata za najboljso potezo
