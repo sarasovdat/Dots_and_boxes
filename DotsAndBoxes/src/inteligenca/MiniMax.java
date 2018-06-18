@@ -59,7 +59,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 		Thread.sleep(300);
 		OcenjenaPoteza p = minimax(0, igra, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		assert (p.poteza != null);
-		// System.out.println("Minimax: " + p);
+		System.out.println("Ocena pozicije: " + p);
 		return p.poteza;
 	}
 	
@@ -82,7 +82,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	 * 
 	 */
 	private OcenjenaPoteza minimax(int k, Igra igra, double alpha, double beta) {
-		System.out.println(k + " " + alpha + " " + beta);
+//		System.out.println(k + " " + alpha + " " + beta);
 		Igralec naPotezi = null;
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: naPotezi = Igralec.RDEC; break;
@@ -100,7 +100,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
 		
-		double ocenaNajboljse = 0.0;
+		double ocenaNajboljse = (naPotezi == jaz ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY);
 		List<Poteza> najboljse = new LinkedList<Poteza>();
 		for (Poteza p : igra.poteze()) {
 			Igra kopijaIgre = new Igra(igra);
@@ -120,24 +120,24 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 				najboljse = new LinkedList<Poteza>();
 				najboljse.add(p);
 				ocenaNajboljse = ocenaP;
-			}
-			// Popravimo alpha ali beta
-			if (naPotezi == jaz) {
-				alpha = Math.max(alpha, ocenaNajboljse);
-			} else {
-				beta = Math.min(beta, ocenaNajboljse);
-			}
-			if (beta <= alpha) {
-				return new OcenjenaPoteza(null, ocenaNajboljse);
+				// Popravimo alpha ali beta
+				if (naPotezi == jaz) {
+					alpha = Math.max(alpha, ocenaNajboljse);
+				} else {
+					beta = Math.min(beta, ocenaNajboljse);
+				}
+				if (beta <= alpha) {
+					return new OcenjenaPoteza(null, ocenaNajboljse);
+				}
 			}
 		}
 		
 		// Vrnemo najboljso najdeno potezo in njeno oceno
-		for (Poteza p : najboljse) System.out.println(p + " " + v);
-		System.out.println("");
+//		for (Poteza p : najboljse) System.out.println(p + " " + v);
+//		System.out.println("");
 		assert (!najboljse.isEmpty());
 		Poteza p = najboljse.get(r.nextInt(najboljse.size()));
-		return new OcenjenaPoteza(p, (int) v);
+		return new OcenjenaPoteza(p, ocenaNajboljse);
 	}
 }
 

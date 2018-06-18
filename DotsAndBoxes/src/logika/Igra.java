@@ -256,6 +256,8 @@ public class Igra {
 	public Plosca getPlosca() {
 		return plosca;
 	}
+	
+	
 
 }
 		
