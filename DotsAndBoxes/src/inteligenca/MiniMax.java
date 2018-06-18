@@ -35,6 +35,11 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	private Igralec jaz;
 	
 	/**
+	 * Nakljucni generator
+	 */
+	private Random r;
+	
+	/**
 	 * 
 	 * @param okno : glavno okno, v katerem vlecemo poteze
 	 * @param globina : koliko potez naprej gledamo
@@ -44,7 +49,8 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	public MiniMax (GlavnoOkno okno, int globina, Igralec jaz) {
 		this.okno = okno;
 		this.globina = globina;
-		this.jaz = jaz;	
+		this.jaz = jaz;
+		this.r = new Random();
 	}
 
 	@Override
@@ -53,7 +59,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 		Thread.sleep(300);
 		OcenjenaPoteza p = minimax(0, igra, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		assert (p.poteza != null);
-		System.out.println("Minimax: " + p);
+		// System.out.println("Minimax: " + p);
 		return p.poteza;
 	}
 	
@@ -76,6 +82,7 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 	 * 
 	 */
 	private OcenjenaPoteza minimax(int k, Igra igra, double alpha, double beta) {
+		System.out.println(k + " " + alpha + " " + beta);
 		Igralec naPotezi = null;
 		switch (igra.stanje()) {
 		case NA_POTEZI_RDEC: naPotezi = Igralec.RDEC; break;
@@ -124,11 +131,13 @@ public class MiniMax extends SwingWorker<Poteza, Object> {
 				return new OcenjenaPoteza(null, ocenaNajboljse);
 			}
 		}
+		
 		// Vrnemo najboljso najdeno potezo in njeno oceno
+		for (Poteza p : najboljse) System.out.println(p + " " + v);
+		System.out.println("");
 		assert (!najboljse.isEmpty());
-		Random r = new Random();
 		Poteza p = najboljse.get(r.nextInt(najboljse.size()));
-		return new OcenjenaPoteza(p, ocenaNajboljse);
+		return new OcenjenaPoteza(p, (int) v);
 	}
 }
 
