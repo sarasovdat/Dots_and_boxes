@@ -40,7 +40,7 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 	
 	/**
 	 * Logika igre
-	 * null, èe se trenutno ne igra
+	 * null, Äe se trenutno ne igra
 	 */
 	private Igra igra;
 	
@@ -72,19 +72,19 @@ public class GlavnoOkno extends JFrame implements ActionListener{
 		JMenu igra_menu = new JMenu("Nova igra");
 		menu_bar.add(igra_menu);
 
-		igraClovekRacunalnik = new JMenuItem("Èlovek – raèunalnik");
+		igraClovekRacunalnik = new JMenuItem("ÄŒlovek â€“ raÄunalnik");
 		igra_menu.add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 		
-		igraRacunalnikClovek = new JMenuItem("Raèunalnik – èlovek");
+		igraRacunalnikClovek = new JMenuItem("RaÄunalnik â€“ Älovek");
 		igra_menu.add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
-		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik – raèunalnik");
+		igraRacunalnikRacunalnik = new JMenuItem("RaÄunalnik â€“ raÄunalnik");
 		igra_menu.add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 
-		igraClovekClovek = new JMenuItem("Èlovek – èlovek");
+		igraClovekClovek = new JMenuItem("ÄŒlovek â€“ Älovek");
 		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 		
