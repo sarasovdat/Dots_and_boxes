@@ -11,9 +11,9 @@ import logika.Poteza;
  */
 public class OcenjenaPoteza {
 	Poteza poteza;
-	int vrednost;
+	double vrednost;
 	
-	public OcenjenaPoteza(Poteza poteza, int vrednost) {
+	public OcenjenaPoteza(Poteza poteza, double vrednost) {
 		super();
 		this.poteza = poteza;
 		this.vrednost = vrednost;
